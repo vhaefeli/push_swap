@@ -10,88 +10,104 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-typedef struct s_bucket
-{
-	int quantity;
-	int	*stack_a;
-	int	*stack_b;
-}	t_bucket;
+#include <stdarg.h>
+#include <stdlib.h>
+#include <unistd.h>
 
-
-void	check_order(t_bucket *bucket)
+typedef	struct	s_list
 {
-	if (bucket->stack_a[0] > bucket->stack_a[1] && quantityb > 1 &&
-			bucket->stack_b[0] < bucket->stack_b[1])
-		swap_ab(bucket->stack_a, bucket->stack_b);
-	else if (bucket->stack_a[0] > bucket->stack_a[1])
-		swap_a(bucket->stack_a);
-	else if (bucket->stack_b[0] < bucket->stack_b[1] && quantityb > 1)
-		swap_b(bucket->stack_b);
-	if (bucket->stack_a[0] > bucket->stack_a[quantitya - 1] && quantityb > 1 &&
-			bucket->stack_b[0] < bucket->stack_b[quantityb - 1])
-		reverserot_ab(bucket->stack_a, bucket->stack_b);
-	else if (bucket->stack_a[0] > bucket->stack_a[quantitya - 1])
-		reverserot_a(bucket->stack_a);
-	else if (bucket->stack_b[0] < bucket->stack_b[quantityb -1])
-		reverserot_b(bucket->stack_b);
+	void			*content;
+	struct s_list	*next;
+}					t_list;
+
+void	ft_lstadd_front(t_list **alst, t_list *new)
+{
+	if (!new)
+		return ;
+	new->next = *alst;
+	*alst = new;
 }
 
-void	push_swap(t_bucket *bucket)
+t_list	*ft_lstnew(void *content)
 {
-	int quantitya;
-	int quantityb;
+	t_list	*list;
+
+	list = malloc(sizeof(*list));
+	if (!list)
+		return (NULL);
+	list->content = content;
+	list->next = NULL;
+	return (list);
+}
+
+t_list	*ft_lstlast(t_list *lst)
+{
+	if (!lst)
+		return (NULL);
+	while (lst->next)
+		lst = lst->next;
+	return (lst);
+}
+
+
+t_list	*fill_list(int argc, char **argv)
+{
+	t_list	*stackA;
+	t_list	*new;
+
+	argc--;
+	stackA = ft_lstnew(argv[argc]);
+	argc--;
+	while(argc > 0)
+	{
+		new = ft_lstnew(argv[argc]);
+		ft_lstadd_front(&stackA, new);
+		argc--;
+	}
+	return (stackA);
+}
+
+void swap(t_list *stack)
+{
+	int temp;
+
+	if (!stack)
+		return ;
+	temp = stack->content;
+	stack->content = stack->next->content;	
+	stack->next->content = temp;
+}
+
+void rotate(t_list **stack)
+{
+	t_list	*temp;
+
+	temp = ft_lstlast(*stack);
+	temp->next = *stack;
+	stack->next = NULL;
+	*stack = temp;
+}
+
+void rev_rotate(t_list **stack)
+{
+}
+
+void push(t_list **stack1, t_list **stack2)
+{
+	if (!stack2)
+		stack2 = ft_lstnew(stack1->content);
+	else
+		stack2 = ft_lstadd_front(stack2, *stack1);
 	
-	quantitya = bucket->quantity;
-	quantityb = 0;
-	while (quantitya > 2)
-	{
-		check_order(bucket);
-		push_tont(bucket->stack_a, bucket->stack_b);
-		write(1, "pb\n", 3);
-		quantitya--;
-		quantityb++;
-	}
-	while (quantityb > 0)
-	{
-		check_order(bucket);
-		push_tont(bucket->stack_b, bucket->stack_a);
-		write(1, "pa\n", 3);
-		quantityb--;
-		quantitya++;
-	}
 }
-
-int	ft_error(void)
-	{
-		write(1, "ERROR\n", 6); 
-		return (0);
-	}
 
 int main(int argc, char **argv)
 {
-	t_bucket	*bucket;
-	int			i;
+	int 	op_nb;
+	t_list	*stackA;
+	t_list	*stackB;
 
-	i = 0;
-	if (argc <= 1)
-		return (ft_error());
-	if (argc = 2)
-		return(0);
-	bucket = malloc((2 * (argc - 1)+ 1)*(size of int));
-	if (!bucket)
-		return (ft_error());
-	bucket->quantity = argc - 1;
-	while (i < argc -1)
-	{
-		bucket->stack_a[i] = argv[i + 1];
-		i++;
-	}
-	if (bucket->quantity = 2)
-	{
-		if (bucket->stack_a[0] > bucket->stack_a[1])
-			swap_a(bucket->stack_a);
-	}
-	else
-		push_swap(bucket);
-	return (0);
-}
+	op_nb = 0;
+	t
+
+
