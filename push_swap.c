@@ -6,7 +6,7 @@
 /*   By: vhaefeli <marvin@42lausanne.ch>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/28 14:04:13 by vhaefeli          #+#    #+#             */
-/*   Updated: 2022/01/28 17:08:53 by vhaefeli         ###   ########.fr       */
+/*   Updated: 2022/02/17 10:48:54 by vhaefeli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,6 +90,20 @@ void rotate(t_list **stack)
 
 void rev_rotate(t_list **stack)
 {
+	t_liste *temp1;
+	t_liste *temp2;
+
+	temp1 = &stack;
+	if (!lst)
+		return (NULL);
+	while (lst->next)
+	{
+
+		lst = lst->next;
+	return (lst);
+
+
+
 }
 
 void push(t_list **stack1, t_list **stack2)
