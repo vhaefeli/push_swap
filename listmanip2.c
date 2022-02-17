@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   push_swap.c                                        :+:      :+:    :+:   */
+/*   listmanip2.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: vhaefeli <marvin@42lausanne.ch>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
@@ -10,48 +10,62 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <push_swap.h>
+#include "pushswap.h"
 
-int	ft_atoi(const char *str)
+void swap(t_list **stack)
 {
-	int	nbr;
-	int	sig;
+	t_list	*temp;
 
-	nbr = 0;
-	sig = 1;
-	while (*str == ' ' || (*str > 8 && *str < 14))
-		str++;
-	if (*str == '-')
-	{
-		sig = -1;
-		str++;
-	}
-	else if (*str == '+')
-		str++;
-	while (*str)
-	{
-		if (*str >= '0' && *str <= '9')
-		{
-			nbr = (nbr * 10) + (*str - 48);
-		}
-		else
-			return (nbr * sig);
-		str++;
-	}
-	return (nbr * sig);
-}	
+	if (!stack)
+		return ;
+	temp = (*stack)->next;
+	(*stack)->next = (*stack)->next->next;	
+	temp->next = *stack;
+	*stack = temp;
+}
+
+void rotate(t_list **stack)
+{
+	t_list	*temp;
+
+	temp = ft_lstlast(*stack);
+	temp->next = *stack;
+	(*stack)->next = NULL;
+	*stack = temp;
+}
+
+void rev_rotate(t_list **stack)
+{
+	t_liste *temp1;
+	t_liste *temp2;
+
+	if (!stack)
+		return (NULL);
+	temp1 = &stack;
+	while (temp1->next->next)
+		temp1 = temp1->next;
+	temp2 = temp1->next;
+	temp1->next = NULL;
+	temp2->next = &stack;
+	stack = *temp2;
+}
+
+void push(t_list **stack1, t_list **stack2)
+{
+	if (!stack2)
+		stack2 = ft_lstnew(stack1->content);
+	else
+		stack2 = ft_lstadd_front(stack2, *stack1);
+	
+}
 
 int main(int argc, char **argv)
 {
-	int		*argv_int,
-	int		i;
+	int 	op_nb;
 	t_list	*stackA;
 	t_list	*stackB;
 
-	i = 0;
-	while (i < argc)
-	{
-		argv_int[i] = ft_atoi
-	stackA = fill_list(argc
+	op_nb = 0;
+	t
 
 
