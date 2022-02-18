@@ -6,11 +6,11 @@
 /*   By: vhaefeli <marvin@42lausanne.ch>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/28 14:04:13 by vhaefeli          #+#    #+#             */
-/*   Updated: 2022/02/17 10:48:54 by vhaefeli         ###   ########.fr       */
+/*   Updated: 2022/02/18 14:58:07 by vhaefeli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <push_swap.h>
+#include "push_swap.h"
 
 int	ft_atoi(const char *str)
 {
@@ -39,19 +39,67 @@ int	ft_atoi(const char *str)
 		str++;
 	}
 	return (nbr * sig);
-}	
+}
+
+void printStack(t_list *stackA, t_list *stackB)
+{
+	int i;
+
+	i = 1;
+	while  (stackA != NULL || stackB != NULL)
+	{
+		printf("%i		", i);
+		if (stackA != NULL)
+			printf("%s		", stackA->content);
+		else
+			printf("		");
+		if (stackB != NULL)
+			printf("%s\n", stackB->content);
+		else
+			printf("\n");
+		if (stackA != NULL)
+			stackA = stackA->next;
+		if (stackB != NULL)
+			stackB = stackB->next;
+		i++;
+	}
+}
 
 int main(int argc, char **argv)
 {
-	int		*argv_int,
 	int		i;
 	t_list	*stackA;
 	t_list	*stackB;
 
-	i = 0;
-	while (i < argc)
+	stackB = NULL;
+	i = 1;
+	stackA = fill_list(argc, argv);
+	if (!stackA)
 	{
-		argv_int[i] = ft_atoi
-	stackA = fill_list(argc
+		printf("il y a eu une erreur de remplissage de la stack :-(");
+		return (0);
+	}
+	printf("la stack s'est bien remplie\n\n");
+	printf("#		stack A		stack B\n");
+	printStack(stackA, stackB);
+	printf("test de swap\n\n");
+	swap(&stackA);
+	printf("#		stack A		stack B\n");
+	printStack(stackA, stackB);
+	printf("test de push\n\n");
+	push(&stackA, &stackB);
+	printf("#		stack A		stack B\n");
+	printStack(stackA, stackB);
+	printf("test reverse rotate\n\n");
+	rev_rotate(&stackA);
+	printf("#		stack A		stack B\n");
+	printStack(stackA, stackB);
+	printf("test de rotate\n\n");
+	rotate(&stackA);
+	printf("#		stack A		stack B\n");
+	printStack(stackA, stackB);
+
+	return (0);
+}
 
 

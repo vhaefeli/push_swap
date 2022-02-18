@@ -6,11 +6,11 @@
 /*   By: vhaefeli <marvin@42lausanne.ch>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/28 14:04:13 by vhaefeli          #+#    #+#             */
-/*   Updated: 2022/02/17 10:48:54 by vhaefeli         ###   ########.fr       */
+/*   Updated: 2022/02/18 13:49:32 by vhaefeli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "pushswap.h"
+#include "push_swap.h"
 
 int	ft_lstsize(t_list *lst)
 {
@@ -62,12 +62,13 @@ t_list	*fill_list(int nbn, char **nb)
 {
 	t_list	*stackA;
 	t_list	*new;
-
-	stackA = ft_lstnew(nb[nbn]);
+	
 	nbn--;
-	while(nb > 0)
+	stackA = ft_lstnew2(nb[nbn]);
+	nbn--;
+	while(nbn > 0)
 	{
-		new = ft_lstnew(nb[nbn]);
+		new = ft_lstnew2(nb[nbn]);
 		ft_lstadd_front(&stackA, new);
 		nbn--;
 	}
