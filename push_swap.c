@@ -6,158 +6,79 @@
 /*   By: vhaefeli <marvin@42lausanne.ch>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/28 14:04:13 by vhaefeli          #+#    #+#             */
-/*   Updated: 2022/02/18 17:12:32 by vhaefeli         ###   ########.fr       */
+/*   Updated: 2022/02/24 14:08:51 by vhaefeli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-int	ft_atoi(const char *str)
-{
-	int	nbr;
-	int	sig;
+int	firstsort(t_list **stack1, t_list **stack2)
+{	
+	int	op;
+	int L;
+	int n;
 
-	nbr = 0;
-	sig = 1;
-	while (*str == ' ' || (*str > 8 && *str < 14))
-		str++;
-	if (*str == '-')
+	op = 0;
+	L = ft_lstsize(*stack1);
+	n = middlevalue(*stack1);
+	while (L--)
 	{
-		sig = -1;
-		str++;
+		swap_or_not(stack1, stack2);
+		op = op + rotate_push(stack1, stack2, n);			
 	}
-	else if (*str == '+')
-		str++;
-	while (*str)
-	{
-		if (*str >= '0' && *str <= '9')
-		{
-			nbr = (nbr * 10) + (*str - 48);
-		}
-		else
-			return (nbr * sig);
-		str++;
-	}
-	return (nbr * sig);
+	return (op);
 }
 
-void printStack(t_list *stackA, t_list *stackB)
-{
-	int i;
-
-	i = 1;
-	while  (stackA != NULL || stackB != NULL)
+int	secondsort(t_list **stackA, t_list **stackB,int op)
+{	
+	while (op--)
 	{
-		printf("%i		", i);
-		if (stackA != NULL)
-			printf("%s		", stackA->content);
-		else
-			printf("		");
-		if (stackB != NULL)
-			printf("%s\n", stackB->content);
-		else
-			printf("\n");
-		if (stackA != NULL)
-			stackA = stackA->next;
-		if (stackB != NULL)
-			stackB = stackB->next;
-		i++;
+		swap_or_not(stackA, stackB);
+		push(stackA, stackB);
+		write(1,"pb\n", 3);
 	}
+	op = firstsort(stackB, stackA);	
+	return (op);
 }
 
-int	check_order(t_list *stack, char c)
-{
-	int checked;
-
-	if (c == 'i')
-	{
-		while (stack->next && stack->nbr < stack->next->nbr);
-			stack = stack->next;
-		if (stack->next = NULL)
-			return (0);
-		else
-			return (1);
-	}
-	if (c == 'd')
-	{
-		while (stack->next && stack->nbr > stack->next->nbr);
-			stack = stack->next;
-		if (stack->next = NULL)
-			return (0);
-		else
-			return (1);
-	}
-	return (1);
-}
-
-void	swap_or_not(t_list **stackA, t_list **stackB)
-{
-			if ((*stackA*)->nbr > (*stackA)->next->nbr && (*stackB)->nbr < (*stackB)->next->nbr)
-			{
-				swap(stackA);
-				swap(stackB);
-				write(1, "ss\n",3);
-			}
-			else if ((*stackA)->nbr > (*stackA)->next->nbr)
-			{
-				swap(stackA);
-				write(1, "sa\n",3);
-			}
-			else if ((*stackB)->nbr < (*stackB)->next->nbr)
-			{
-				swap(stackB);
-				write(1, "sb\n",3);
-			}
-}
 int main(int argc, char **argv)
 {
-	int		i;
+	int		L;
+	int		op;
 	t_list	*stackA;
 	t_list	*stackB;
 
 	stackB = NULL;
-	i = 1;
 	stackA = fill_list(argc, argv);
+	L = ft_lstsize(stackA);
 	if (!stackA)
 	{
 		printf("il y a eu une erreur de remplissage de la stack :-(");
 		return (0);
 	}
 	printf("la stack s'est bien remplie\n\n");
-	printf("#		stack A		stack B\n");
 	printStack(stackA, stackB);
-	while (check_order(stackA, 'i') && stackB)
+	while (check_order(stackA, 'i', L))
+		op = firstsort(&stackA, &stackB);	
+	printStack(stackA, stackB);
+	if (check_order(stackB, 'd', op) == 0)
+		pushback(&stackA, &stackB, op);
+	if (check_order(stackB, 'd', ft_lstsize(stackB)) == 0)
 	{
-		while (check_order(stackA, 'i') && check_order(stackB, 'd'))
-		{
-			while
-		
-	
+		pushback(&stackA, &stackB, ft_lstsize(stackB));
+		printStack(stackA, stackB);
+		lst_del(&stackA);
+		return (0);
 	}
-	while (stackA->next)
+	op = firstsort(&stackB, &stackA);
+	printStack(stackA, stackB);
+	while (check_order(stackB, 'd', ft_lstsize(stackB)) == 1 ||
+			check_order(stackA, 'i', ft_lstsize(stackA)) == 1)
 	{
-		stackA->content = NULL;
-		stackA->nbr = NULL;
-		free (stackA);
-		stackA = stackA->next;
-	}	
+		op = secondsort(&stackA, &stackB, op);
+	}
+	pushback(&stackA, &stackB, ft_lstsize(stackB));
+	printStack(stackA, stackB);
+	lst_del(&stackA);
 	return (0);
 }
-
-/* test des fonctions de manipulation
- *	printf("test de swap\n\n");
-	swap(&stackA);
-	printf("#		stack A		stack B\n");
-	printStack(stackA, stackB);
-	printf("test de push\n\n");
-	push(&stackA, &stackB);
-	printf("#		stack A		stack B\n");
-	printStack(stackA, stackB);
-	printf("test reverse rotate\n\n");
-	rev_rotate(&stackA);
-	printf("#		stack A		stack B\n");
-	printStack(stackA, stackB);
-	printf("test de rotate\n\n");
-	rotate(&stackA);
-	printf("#		stack A		stack B\n");
-	printStack(stackA, stackB);*/

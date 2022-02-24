@@ -6,11 +6,28 @@
 /*   By: vhaefeli <marvin@42lausanne.ch>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/28 14:04:13 by vhaefeli          #+#    #+#             */
-/*   Updated: 2022/02/18 17:12:36 by vhaefeli         ###   ########.fr       */
+/*   Updated: 2022/02/24 13:46:28 by vhaefeli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
+
+t_list	*fill_list(int nbn, char **nb)
+{
+	t_list	*stackA;
+	t_list	*new;
+
+	nbn--;
+	stackA = ft_lstnew2(nb[nbn]);
+	nbn--;
+	while(nbn > 0)
+	{
+		new = ft_lstnew2(nb[nbn]);
+		ft_lstadd_front(&stackA, new);
+		nbn--;
+	}
+	return (stackA);
+}
 
 void swap(t_list **stack)
 {

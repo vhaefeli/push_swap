@@ -6,7 +6,7 @@
 /*   By: vhaefeli <marvin@42lausanne.ch>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/28 14:04:13 by vhaefeli          #+#    #+#             */
-/*   Updated: 2022/02/18 17:12:40 by vhaefeli         ###   ########.fr       */
+/*   Updated: 2022/02/24 14:09:01 by vhaefeli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,14 +25,6 @@ int	ft_lstsize(t_list *lst)
 		lst = lst->next;
 	}
 	return (sizelst);
-}
-
-void	ft_lstdelone(t_list *lst, void (*del)(void *))
-{
-	if (!lst)
-		return ;
-	del(lst->content);
-	free(lst);
 }
 
 t_list	*ft_lstnew2(void *content)
@@ -65,20 +57,13 @@ t_list	*ft_lstlast(t_list *lst)
 	return (lst);
 }
 
-
-t_list	*fill_list(int nbn, char **nb)
+void	lst_del(t_list **stack)
 {
-	t_list	*stackA;
-	t_list	*new;
-	
-	nbn--;
-	stackA = ft_lstnew2(nb[nbn]);
-	nbn--;
-	while(nbn > 0)
+	while ((*stack)->next)
 	{
-		new = ft_lstnew2(nb[nbn]);
-		ft_lstadd_front(&stackA, new);
-		nbn--;
+		(*stack)->content = NULL;
+		(*stack)->nbr = 0;
+		free (*stack);
+		*stack = (*stack)->next;
 	}
-	return (stackA);
 }

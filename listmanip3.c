@@ -6,7 +6,7 @@
 /*   By: vhaefeli <marvin@42lausanne.ch>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/28 14:04:13 by vhaefeli          #+#    #+#             */
-/*   Updated: 2022/02/23 16:53:23 by vhaefeli         ###   ########.fr       */
+/*   Updated: 2022/02/24 14:08:58 by vhaefeli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,24 +66,23 @@ void printStack(t_list *stackA, t_list *stackB)
 	}
 }
 
-int	check_order(t_list *stack, char c)
+int	check_order(t_list *stack, char c, int n)
+// n is the nbr of element to check if it's all the liste put a ft_lstsize
 {
-	int checked;
-
 	if (c == 'i')
 	{
-		while (stack->next && stack->nbr < stack->next->nbr);
+		while (n-- > 0 && stack->nbr < stack->next->nbr)
 			stack = stack->next;
-		if (stack->next = NULL)
+		if (n == 0)
 			return (0);
 		else
 			return (1);
 	}
 	if (c == 'd')
 	{
-		while (stack->next && stack->nbr > stack->next->nbr);
+		while (n-- > 0 && stack->nbr > stack->next->nbr)
 			stack = stack->next;
-		if (stack->next = NULL)
+		if (n == 0)
 			return (0);
 		else
 			return (1);
@@ -93,7 +92,7 @@ int	check_order(t_list *stack, char c)
 
 void	swap_or_not(t_list **stackA, t_list **stackB)
 {
-	if ((*stackA*)->nbr > (*stackA)->next->nbr &&
+	if ((*stackA)->nbr > (*stackA)->next->nbr &&
 			(*stackB)->nbr < (*stackB)->next->nbr &&
 			(*stackB)->nbr > ft_lstlast(*stackB)->nbr)
 	{
@@ -106,7 +105,7 @@ void	swap_or_not(t_list **stackA, t_list **stackB)
 		swap(stackA);
 		write(1, "sa\n",3);
 	}
-	else if ((*stackB)->nbr < (*stackB)->next->nbr) &&
+	else if ((*stackB)->nbr < (*stackB)->next->nbr &&
 			(*stackB)->nbr > ft_lstlast(*stackB)->nbr)
 	{
 		swap(stackB);

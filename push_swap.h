@@ -20,11 +20,20 @@ int		ft_lstsize(t_list *lst);
 t_list	*ft_lstnew2(void *content);
 void	ft_lstadd_front(t_list **alst, t_list *new);
 t_list	*ft_lstlast(t_list *lst);
+void	lst_del(t_list **stack);
 t_list	*fill_list(int nbn, char **nb);
 
 void	swap(t_list **stack);
 void	rotate(t_list **stack);
 void	rev_rotate(t_list **stack);
 void	push(t_list **stack1, t_list **stack2);
+void	printStack(t_list *stackA, t_list *stackB);
+int		check_order(t_list *stack, char c, int n);
+void	swap_or_not(t_list **stackA, t_list **stackB);
+int		middlevalue(t_list *stack);
+int		rotate_push(t_list **stackA, t_list **stackB, int n);
+void	pushback(t_list **stackA, t_list **stackB, int n);
+int		firstsort(t_list **stack1, t_list **stack2);
+int		secondsort(t_list **stackA, t_list **stackB, int op);
 
 #endif
