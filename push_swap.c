@@ -21,16 +21,20 @@ int	firstsort(t_list **stack1, t_list **stack2)
 	op = 0;
 	L = ft_lstsize(*stack1);
 	n = middlevalue(*stack1);
+	printf("n=%d",n);
+	write(1,"A", 1);
 	while (L--)
 	{
 		swap_or_not(stack1, stack2);
 		op = op + rotate_push(stack1, stack2, n);			
 	}
+	write(1,"B", 1);
 	return (op);
 }
 
 int	secondsort(t_list **stackA, t_list **stackB,int op)
 {	
+	write(1,"C", 1);
 	while (op--)
 	{
 		swap_or_not(stackA, stackB);
@@ -38,19 +42,18 @@ int	secondsort(t_list **stackA, t_list **stackB,int op)
 		write(1,"pb\n", 3);
 	}
 	op = firstsort(stackB, stackA);	
+	write(1,"D", 1);
 	return (op);
 }
 
 int main(int argc, char **argv)
 {
-	int		L;
 	int		op;
 	t_list	*stackA;
 	t_list	*stackB;
 
 	stackB = NULL;
 	stackA = fill_list(argc, argv);
-	L = ft_lstsize(stackA);
 	if (!stackA)
 	{
 		printf("il y a eu une erreur de remplissage de la stack :-(");
@@ -58,7 +61,7 @@ int main(int argc, char **argv)
 	}
 	printf("la stack s'est bien remplie\n\n");
 	printStack(stackA, stackB);
-	while (check_order(stackA, 'i', L))
+	while (check_order(stackA, 'i',ft_lstsize(stackA)))
 		op = firstsort(&stackA, &stackB);	
 	printStack(stackA, stackB);
 	if (check_order(stackB, 'd', op) == 0)

@@ -69,19 +69,30 @@ void printStack(t_list *stackA, t_list *stackB)
 int	check_order(t_list *stack, char c, int n)
 // n is the nbr of element to check if it's all the liste put a ft_lstsize
 {
+	printf("n:%d",n);
 	if (c == 'i')
 	{
-		while (n-- > 0 && stack->nbr < stack->next->nbr)
+		while (n > 0 && stack->nbr < (stack->next)->nbr)
+		{	
+			write(1, "X",1);
 			stack = stack->next;
+			n--;
+		}
 		if (n == 0)
 			return (0);
 		else
+		{
+			write(1, "W", 1);
 			return (1);
+		}
 	}
 	if (c == 'd')
 	{
-		while (n-- > 0 && stack->nbr > stack->next->nbr)
+		while (n > 0 && stack->nbr > (stack->next)->nbr)
+		{
 			stack = stack->next;
+			n--;
+		}
 		if (n == 0)
 			return (0);
 		else
@@ -92,25 +103,26 @@ int	check_order(t_list *stack, char c, int n)
 
 void	swap_or_not(t_list **stackA, t_list **stackB)
 {
-	if ((*stackA)->nbr > (*stackA)->next->nbr &&
-			(*stackB)->nbr < (*stackB)->next->nbr &&
-			(*stackB)->nbr > ft_lstlast(*stackB)->nbr)
+	write(1, "S",1);
+	if (*stackB != NULL && (*stackA)->nbr > ((*stackA)->next)->nbr && (*stackB)->nbr < ((*stackB)->next)->nbr && (*stackB)->nbr > (ft_lstlast(*stackB))->nbr)
 	{
 		swap(stackA);
 		swap(stackB);
 		write(1, "ss\n",3);
 	}
-	else if ((*stackA)->nbr > (*stackA)->next->nbr)
+	else if ((*stackA)->nbr > ((*stackA)->next)->nbr)
 	{
+		write(1,"S2", 2);
 		swap(stackA);
 		write(1, "sa\n",3);
 	}
-	else if ((*stackB)->nbr < (*stackB)->next->nbr &&
-			(*stackB)->nbr > ft_lstlast(*stackB)->nbr)
+	else if (*stackB != NULL && (*stackB)->nbr < ((*stackB)->next)->nbr && (*stackB)->nbr > (ft_lstlast(*stackB))->nbr)
 	{
 		swap(stackB);
 		write(1, "sb\n",3);
 	}
+	else
+		write(1,"S0",2);
 }
 
 int	middlevalue(t_list *stack)
@@ -130,7 +142,8 @@ int	middlevalue(t_list *stack)
 
 int	rotate_push(t_list **stackA, t_list **stackB, int n)
 {
-	if ((*stackA)->nbr > n && (*stackB)->nbr < ft_lstlast(*stackB)->nbr)
+	write(1,"R",1);
+	if (*stackB != NULL && (*stackA)->nbr > n && (*stackB)->nbr < (ft_lstlast(*stackB))->nbr)
 	{
 		rotate(stackA);
 		rotate(stackB);
@@ -141,7 +154,7 @@ int	rotate_push(t_list **stackA, t_list **stackB, int n)
 		rotate(stackA);
 		write(1, "ra\n",3);
 	}
-	else if ((*stackB)->nbr < (*stackB)->next->nbr)
+	else if (*stackB != NULL && (*stackB)->nbr < ((*stackB)->next)->nbr)
 	{
 		rotate(stackB);
 		push(stackA, stackB);
@@ -159,6 +172,7 @@ int	rotate_push(t_list **stackA, t_list **stackB, int n)
 
 void pushback(t_list **stackA, t_list **stackB, int n)
 {
+	write(1,"PB", 2);
 	if (n == 0)
 	{
 		while ((*stackB)->next == NULL)
