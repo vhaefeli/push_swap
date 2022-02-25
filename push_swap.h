@@ -16,6 +16,10 @@ typedef struct	s_list
 }					t_list;
 
 int		ft_atoi(const char *str);
+int		ft_bigger(t_list *stack1, t_list *stack2);
+int		ft_smaller(t_list *stack1, t_list *stack2);
+int		ft_biggernb(t_list *stack1, int n);
+int		ft_smallernb(t_list *stack1, int n);
 int		ft_lstsize(t_list *lst);
 t_list	*ft_lstnew2(void *content);
 void	ft_lstadd_front(t_list **alst, t_list *new);

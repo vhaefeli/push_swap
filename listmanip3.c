@@ -6,47 +6,19 @@
 /*   By: vhaefeli <marvin@42lausanne.ch>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/28 14:04:13 by vhaefeli          #+#    #+#             */
-/*   Updated: 2022/02/24 14:08:58 by vhaefeli         ###   ########.fr       */
+/*   Updated: 2022/02/25 16:13:34 by vhaefeli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-int	ft_atoi(const char *str)
-{
-	int	nbr;
-	int	sig;
-
-	nbr = 0;
-	sig = 1;
-	while (*str == ' ' || (*str > 8 && *str < 14))
-		str++;
-	if (*str == '-')
-	{
-		sig = -1;
-		str++;
-	}
-	else if (*str == '+')
-		str++;
-	while (*str)
-	{
-		if (*str >= '0' && *str <= '9')
-		{
-			nbr = (nbr * 10) + (*str - 48);
-		}
-		else
-			return (nbr * sig);
-		str++;
-	}
-	return (nbr * sig);
-}
 
 void printStack(t_list *stackA, t_list *stackB)
 {
 	int i;
 
 	i = 1;
-	printf("#		stackA		stackB\n");
+	printf("\n#		stackA		stackB\n");
 	while  (stackA != NULL || stackB != NULL)
 	{
 		printf("%i		", i);
@@ -69,7 +41,7 @@ void printStack(t_list *stackA, t_list *stackB)
 int	check_order(t_list *stack, char c, int n)
 // n is the nbr of element to check if it's all the liste put a ft_lstsize
 {
-	printf("n:%d",n);
+	printf("L:%d",n);
 	if (c == 'i')
 	{
 		while (n > 0 && stack->nbr < (stack->next)->nbr)
@@ -88,7 +60,7 @@ int	check_order(t_list *stack, char c, int n)
 	}
 	if (c == 'd')
 	{
-		while (n > 0 && stack->nbr > (stack->next)->nbr)
+		while (n > 0 && stack->nbr > stack->next->nbr)
 		{
 			stack = stack->next;
 			n--;
@@ -104,19 +76,19 @@ int	check_order(t_list *stack, char c, int n)
 void	swap_or_not(t_list **stackA, t_list **stackB)
 {
 	write(1, "S",1);
-	if (*stackB != NULL && (*stackA)->nbr > ((*stackA)->next)->nbr && (*stackB)->nbr < ((*stackB)->next)->nbr && (*stackB)->nbr > (ft_lstlast(*stackB))->nbr)
+	if (*stackB && ft_bigger(*stackA, (*stackA)->next) && ft_smaller(*stackB, (*stackB)->next) && ft_bigger(*stackB, ft_lstlast(*stackB)))
 	{
 		swap(stackA);
 		swap(stackB);
 		write(1, "ss\n",3);
 	}
-	else if ((*stackA)->nbr > ((*stackA)->next)->nbr)
+	else if (ft_bigger(*stackA, (*stackA)->next))
 	{
 		write(1,"S2", 2);
 		swap(stackA);
 		write(1, "sa\n",3);
 	}
-	else if (*stackB != NULL && (*stackB)->nbr < ((*stackB)->next)->nbr && (*stackB)->nbr > (ft_lstlast(*stackB))->nbr)
+	else if (*stackB && ft_smaller(*stackB, (*stackB)->next) && ft_bigger(*stackB, ft_lstlast(*stackB)))
 	{
 		swap(stackB);
 		write(1, "sb\n",3);
@@ -130,7 +102,7 @@ int	middlevalue(t_list *stack)
 	int	L;
 	int i;
 
-	i = 0;
+	i = 1;
 	L = ft_lstsize(stack);
 	while (i < L / 2)
 	{
@@ -143,18 +115,18 @@ int	middlevalue(t_list *stack)
 int	rotate_push(t_list **stackA, t_list **stackB, int n)
 {
 	write(1,"R",1);
-	if (*stackB != NULL && (*stackA)->nbr > n && (*stackB)->nbr < (ft_lstlast(*stackB))->nbr)
+	if (*stackB && ft_biggernb(*stackA, n) && ft_smaller(*stackB, ft_lstlast(*stackB)))
 	{
 		rotate(stackA);
 		rotate(stackB);
 		write(1, "rr\n",3);
 	}
-	else if ((*stackA)->nbr > n)
+	else if (ft_biggernb(*stackA, n))
 	{
 		rotate(stackA);
 		write(1, "ra\n",3);
 	}
-	else if (*stackB != NULL && (*stackB)->nbr < ((*stackB)->next)->nbr)
+	else if (*stackB && ft_smaller(*stackB, (*stackB)->next))
 	{
 		rotate(stackB);
 		push(stackA, stackB);

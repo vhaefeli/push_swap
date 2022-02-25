@@ -6,7 +6,7 @@
 /*   By: vhaefeli <marvin@42lausanne.ch>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/28 14:04:13 by vhaefeli          #+#    #+#             */
-/*   Updated: 2022/02/24 14:08:51 by vhaefeli         ###   ########.fr       */
+/*   Updated: 2022/02/25 16:13:31 by vhaefeli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,14 +21,24 @@ int	firstsort(t_list **stack1, t_list **stack2)
 	op = 0;
 	L = ft_lstsize(*stack1);
 	n = middlevalue(*stack1);
+	L--;
 	printf("n=%d",n);
 	write(1,"A", 1);
 	while (L--)
-	{
+	{	
 		swap_or_not(stack1, stack2);
-		op = op + rotate_push(stack1, stack2, n);			
+		op = op + rotate_push(stack1, stack2, n);
+		printStack(*stack1, *stack2);		
 	}
+	if (*stack2 && ft_smaller(*stack1, (*stack2)->next) && ft_bigger(*stack2, ft_lstlast(*stack2)))
+	{
+		swap(stack2);
+		write(1, "sb\n",3);
+	}
+	rotate_push(stack1, stack2, n);
+	printStack(*stack1, *stack2);
 	write(1,"B", 1);
+	printf("OP=%d\n",op);
 	return (op);
 }
 
@@ -64,6 +74,7 @@ int main(int argc, char **argv)
 	while (check_order(stackA, 'i',ft_lstsize(stackA)))
 		op = firstsort(&stackA, &stackB);	
 	printStack(stackA, stackB);
+	printf("OP:%d\n",op);
 	if (check_order(stackB, 'd', op) == 0)
 		pushback(&stackA, &stackB, op);
 	if (check_order(stackB, 'd', ft_lstsize(stackB)) == 0)
