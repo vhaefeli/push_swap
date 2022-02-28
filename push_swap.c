@@ -12,36 +12,66 @@
 
 #include "push_swap.h"
 
-int	firstsort(t_list **stack1, t_list **stack2)
+int	firstsort(t_list **stackA, t_list **stackB)
 {	
 	int	op;
 	int L;
 	int n;
 
 	op = 0;
-	L = ft_lstsize(*stack1);
-	n = middlevalue(*stack1);
+	L = ft_lstsize(*stackA);
+	n = middlevalue(*stackA);
 	L--;
 	printf("n=%d",n);
 	write(1,"A", 1);
 	while (L--)
 	{	
-		swap_or_not(stack1, stack2);
-		op = op + rotate_push(stack1, stack2, n);
-		printStack(*stack1, *stack2);		
+		swap_or_not(stackA, stackB);
+		op = op + rotate_push(stackA, stackB, n);
+		printStack(*stackA, *stackB);		
 	}
-	if (*stack2 && ft_smaller(*stack1, (*stack2)->next) && ft_bigger(*stack2, ft_lstlast(*stack2)))
+	if (*stackB && ft_smaller(*stackA, (*stackB)->next) && ft_bigger(*stackB, ft_lstlast(*stackB)))
 	{
-		swap(stack2);
+		swap(stackB);
 		write(1, "sb\n",3);
 	}
-	rotate_push(stack1, stack2, n);
-	printStack(*stack1, *stack2);
+	op = op + rotate_push(stackA, stackB, n);
+	printStack(*stackA, *stackB);
 	write(1,"B", 1);
 	printf("OP=%d\n",op);
 	return (op);
 }
 
+
+int	firstsortBA(t_list **stackB, t_list **stackA)
+{	
+	int	op;
+	int L;
+	int n;
+
+	op = 0;
+	L = ft_lstsize(*stackB);
+	n = middlevalue(*stackB);
+	L--;
+	printf("n=%d",n);
+	write(1,"A2", 1);
+	while (L--)
+	{	
+		swap_or_not(stackA, stackB);
+		op = op + rotate_pushBA(stackA, stackB, n);
+		printStack(*stackA, *stackB);		
+	}
+	if (*stackB && ft_smaller(*stackA, (*stackB)->next) && ft_bigger(*stackB, ft_lstlast(*stackB)))
+	{
+		swap(stackB);
+		write(1, "sb\n",3);
+	}
+	op = op + rotate_push(stackA, stackB, n);
+	printStack(*stackA, *stackB);
+	write(1,"B", 1);
+	printf("OP=%d\n",op);
+	return (op);
+}
 int	secondsort(t_list **stackA, t_list **stackB,int op)
 {	
 	write(1,"C", 1);
@@ -73,10 +103,8 @@ int main(int argc, char **argv)
 	printStack(stackA, stackB);
 	while (check_order(stackA, 'i',ft_lstsize(stackA)))
 		op = firstsort(&stackA, &stackB);	
-	printStack(stackA, stackB);
-	printf("OP:%d\n",op);
-	if (check_order(stackB, 'd', op) == 0)
-		pushback(&stackA, &stackB, op);
+//	printStack(stackA, stackB);
+//	printf("OP:%d\n",op);
 	if (check_order(stackB, 'd', ft_lstsize(stackB)) == 0)
 	{
 		pushback(&stackA, &stackB, ft_lstsize(stackB));
@@ -84,15 +112,19 @@ int main(int argc, char **argv)
 		lst_del(&stackA);
 		return (0);
 	}
+	if (check_order(stackB, 'd', op) == 0)
+		pushback(&stackA, &stackB, op);
 	op = firstsort(&stackB, &stackA);
 	printStack(stackA, stackB);
+	return (0);
 	while (check_order(stackB, 'd', ft_lstsize(stackB)) == 1 ||
 			check_order(stackA, 'i', ft_lstsize(stackA)) == 1)
 	{
 		op = secondsort(&stackA, &stackB, op);
 	}
 	pushback(&stackA, &stackB, ft_lstsize(stackB));
-	printStack(stackA, stackB);
+//	printStack(stackA, stackB);
+	write(1, "\nTRIE!!!\n", 9);
 	lst_del(&stackA);
 	return (0);
 }

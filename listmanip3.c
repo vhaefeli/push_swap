@@ -44,13 +44,13 @@ int	check_order(t_list *stack, char c, int n)
 	printf("L:%d",n);
 	if (c == 'i')
 	{
-		while (n > 0 && stack->nbr < (stack->next)->nbr)
+		while (n > 1 && stack->nbr < (stack->next)->nbr)
 		{	
 			write(1, "X",1);
 			stack = stack->next;
 			n--;
 		}
-		if (n == 0)
+		if (n == 1)
 			return (0);
 		else
 		{
@@ -60,12 +60,12 @@ int	check_order(t_list *stack, char c, int n)
 	}
 	if (c == 'd')
 	{
-		while (n > 0 && stack->nbr > stack->next->nbr)
+		while (n > 1 && stack->nbr > stack->next->nbr)
 		{
 			stack = stack->next;
 			n--;
 		}
-		if (n == 0)
+		if (n == 1)
 			return (0);
 		else
 			return (1);
@@ -121,12 +121,42 @@ int	rotate_push(t_list **stackA, t_list **stackB, int n)
 		rotate(stackB);
 		write(1, "rr\n",3);
 	}
-	else if (ft_biggernb(*stackA, n))
+	else if (!ft_smallernb(*stackA, n))
 	{
 		rotate(stackA);
 		write(1, "ra\n",3);
 	}
-	else if (*stackB && ft_smaller(*stackB, (*stackB)->next))
+	else if (*stackB && ft_smaller(*stackB, (*stackB)->next) )
+	{
+		rotate(stackB);
+		push(stackA, stackB);
+		write(1, "rb\npb\n", 6);
+		return (1);
+	}
+	else
+	{
+		push(stackA, stackB);
+		write(1, "pb\n", 3);
+		return (1);
+	}
+	return (0);
+}
+
+int	rotate_pushBA(t_list **stackA, t_list **stackB, int n)
+{
+	write(1,"R",1);
+	if (*stackB && ft_biggernb(*stackA, n) && ft_smaller(*stackB, ft_lstlast(*stackB)))
+	{
+		rotate(stackA);
+		rotate(stackB);
+		write(1, "rr\n",3);
+	}
+	else if (!ft_smallernb(*stackB, n))
+	{
+		rotate(stackB);
+		write(1, "rb\n",3);
+	}
+	else if (ft_smaller(*stackB, (*stackB)->next) )
 	{
 		rotate(stackB);
 		push(stackA, stackB);
@@ -147,21 +177,23 @@ void pushback(t_list **stackA, t_list **stackB, int n)
 	write(1,"PB", 2);
 	if (n == 0)
 	{
-		while ((*stackB)->next == NULL)
+		while ((*stackB)->next != NULL)
 		{
 			push(stackB, stackA);
 			write(1, "pa\n", 3);
-			*stackB = (*stackB)->next;
 		}
 	}
 	else
 	{
-		while (n--)
+		printf("\nn:%d\n",n);
+		while (n > 0 )
 		{
 			push(stackB, stackA);
 			write(1, "pa\n", 3);
-			*stackB = (*stackB)->next;
+			printStack(*stackA, *stackB);
+			n--;
 		}
 	}
+	write(1, "\n pushend\n", 10);
 }
 
