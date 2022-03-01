@@ -6,7 +6,7 @@
 /*   By: vhaefeli <marvin@42lausanne.ch>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/28 14:04:13 by vhaefeli          #+#    #+#             */
-/*   Updated: 2022/02/25 16:13:34 by vhaefeli         ###   ########.fr       */
+/*   Updated: 2022/03/01 17:48:01 by vhaefeli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,12 +41,12 @@ void printStack(t_list *stackA, t_list *stackB)
 int	check_order(t_list *stack, char c, int n)
 // n is the nbr of element to check if it's all the liste put a ft_lstsize
 {
-	printf("L:%d",n);
+//	printf("L:%d",n);
 	if (c == 'i')
 	{
 		while (n > 1 && stack->nbr < (stack->next)->nbr)
 		{	
-			write(1, "X",1);
+//			write(1, "X",1);
 			stack = stack->next;
 			n--;
 		}
@@ -54,7 +54,7 @@ int	check_order(t_list *stack, char c, int n)
 			return (0);
 		else
 		{
-			write(1, "W", 1);
+//			write(1, "W", 1);
 			return (1);
 		}
 	}
@@ -75,7 +75,7 @@ int	check_order(t_list *stack, char c, int n)
 
 void	swap_or_not(t_list **stackA, t_list **stackB)
 {
-	write(1, "S",1);
+//	write(1, "S",1);
 	if (*stackB && ft_bigger(*stackA, (*stackA)->next) && ft_smaller(*stackB, (*stackB)->next) && ft_bigger(*stackB, ft_lstlast(*stackB)))
 	{
 		swap(stackA);
@@ -84,7 +84,7 @@ void	swap_or_not(t_list **stackA, t_list **stackB)
 	}
 	else if (ft_bigger(*stackA, (*stackA)->next))
 	{
-		write(1,"S2", 2);
+//		write(1,"S2", 2);
 		swap(stackA);
 		write(1, "sa\n",3);
 	}
@@ -93,8 +93,32 @@ void	swap_or_not(t_list **stackA, t_list **stackB)
 		swap(stackB);
 		write(1, "sb\n",3);
 	}
-	else
-		write(1,"S0",2);
+//	else
+//		write(1,"S0",2);
+}
+
+void	swap_or_not2(t_list **stackA, t_list **stackB)
+{
+//	write(1, "S2",2);
+	if (*stackB && ft_bigger(*stackA, (*stackA)->next) && ft_smaller(*stackB, (*stackB)->next))
+	{
+		swap(stackA);
+		swap(stackB);
+		write(1, "ss\n",3);
+	}
+	else if (ft_bigger(*stackA, (*stackA)->next))
+	{
+//		write(1,"S2", 2);
+		swap(stackA);
+		write(1, "sa\n",3);
+	}
+	else if (*stackB && ft_smaller(*stackB, (*stackB)->next))
+	{
+		swap(stackB);
+		write(1, "sb\n",3);
+	}
+//	else
+//		write(1,"S0",2);
 }
 
 int	middlevalue(t_list *stack)
@@ -112,9 +136,9 @@ int	middlevalue(t_list *stack)
 	return (stack->nbr);
 }
 
-int	rotate_push(t_list **stackA, t_list **stackB, int n)
+int	rotate_pushAB(t_list **stackA, t_list **stackB, int n)
 {
-	write(1,"R",1);
+//	write(1,"R",1);
 	if (*stackB && ft_biggernb(*stackA, n) && ft_smaller(*stackB, ft_lstlast(*stackB)))
 	{
 		rotate(stackA);
@@ -144,29 +168,15 @@ int	rotate_push(t_list **stackA, t_list **stackB, int n)
 
 int	rotate_pushBA(t_list **stackA, t_list **stackB, int n)
 {
-	write(1,"R",1);
-	if (*stackB && ft_biggernb(*stackA, n) && ft_smaller(*stackB, ft_lstlast(*stackB)))
-	{
-		rotate(stackA);
-		rotate(stackB);
-		write(1, "rr\n",3);
-	}
-	else if (!ft_smallernb(*stackB, n))
+	if (ft_smallernb(*stackB, n))
 	{
 		rotate(stackB);
 		write(1, "rb\n",3);
 	}
-	else if (ft_smaller(*stackB, (*stackB)->next) )
-	{
-		rotate(stackB);
-		push(stackA, stackB);
-		write(1, "rb\npb\n", 6);
-		return (1);
-	}
 	else
 	{
-		push(stackA, stackB);
-		write(1, "pb\n", 3);
+		push(stackB, stackA);
+		write(1, "pa\n", 3);
 		return (1);
 	}
 	return (0);
@@ -174,26 +184,27 @@ int	rotate_pushBA(t_list **stackA, t_list **stackB, int n)
 
 void pushback(t_list **stackA, t_list **stackB, int n)
 {
-	write(1,"PB", 2);
+//	write(1,"PB", 2);
 	if (n == 0)
 	{
 		while ((*stackB)->next != NULL)
 		{
 			push(stackB, stackA);
 			write(1, "pa\n", 3);
-		}
+//			printStack(*stackA, *stackB);
+	}
 	}
 	else
 	{
-		printf("\nn:%d\n",n);
+//		printf("\nn:%d\n",n);
 		while (n > 0 )
 		{
 			push(stackB, stackA);
 			write(1, "pa\n", 3);
-			printStack(*stackA, *stackB);
+//			printStack(*stackA, *stackB);
 			n--;
 		}
 	}
-	write(1, "\n pushend\n", 10);
+//	write(1, "\n pushend\n", 10);
 }
 
