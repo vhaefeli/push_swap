@@ -6,7 +6,7 @@
 /*   By: vhaefeli <marvin@42lausanne.ch>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/28 14:04:13 by vhaefeli          #+#    #+#             */
-/*   Updated: 2022/03/01 17:48:52 by vhaefeli         ###   ########.fr       */
+/*   Updated: 2022/03/01 18:04:47 by vhaefeli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,12 +25,18 @@ int main(int argc, char **argv)
 		printf("il y a eu une erreur de remplissage de la stack :-(");
 		return (0);
 	}
-//	printf("la stack s'est bien remplie\n\n");
-//	printStack(stackA, stackB);
+	printf("la stack s'est bien remplie\n\n");
+	printStack(stackA, stackB);
 	while (check_order(stackA, 'i',ft_lstsize(stackA)))
 		op = firstsortAB(&stackA, &stackB);
 //	printStack(stackA, stackB);
 //	printf("OP:%d\n",op);
+	if (!stackB)
+	{
+		write(1, "\nsorted!\n", 9);
+		lst_del(&stackA);
+		return (0);
+	}
 	if (check_order(stackB, 'd', ft_lstsize(stackB)) == 0)
 	{
 		pushback(&stackA, &stackB, ft_lstsize(stackB));

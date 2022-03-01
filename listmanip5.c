@@ -6,7 +6,7 @@
 /*   By: vhaefeli <marvin@42lausanne.ch>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/28 14:04:13 by vhaefeli          #+#    #+#             */
-/*   Updated: 2022/03/01 17:47:36 by vhaefeli         ###   ########.fr       */
+/*   Updated: 2022/03/01 18:06:32 by vhaefeli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,13 +22,13 @@ int	firstsortAB(t_list **stackA, t_list **stackB)
 	L = ft_lstsize(*stackA);
 	n = middlevalue(*stackA);
 	L--;
-//	printf("n=%d",n);
+	printf("n=%d",n);
 //	write(1,"A", 1);
 	while (L--)
 	{	
 		swap_or_not(stackA, stackB);
 		op = op + rotate_pushAB(stackA, stackB, n);
-//		printStack(*stackA, *stackB);		
+		printStack(*stackA, *stackB);		
 	}
 	if (*stackB && ft_smaller(*stackB, (*stackB)->next) && ft_bigger(*stackB, ft_lstlast(*stackB)))
 	{
@@ -36,7 +36,7 @@ int	firstsortAB(t_list **stackA, t_list **stackB)
 		write(1, "sb\n",3);
 	}
 	op = op + rotate_pushAB(stackA, stackB, n);
-//	printStack(*stackA, *stackB);
+	printStack(*stackA, *stackB);
 //	write(1,"B", 1);
 //	printf("OP=%d\n",op);
 	return (op);
@@ -59,7 +59,7 @@ int	firstsortBA(t_list **stackA, t_list **stackB)
 	{	
 		swap_or_not(stackA, stackB);
 		op = op + rotate_pushBA(stackA, stackB, n);
-//		printStack(*stackA, *stackB);		
+		printStack(*stackA, *stackB);		
 	}
 	if (ft_smaller(*stackB, (*stackB)->next) && ft_bigger(*stackB, ft_lstlast(*stackB)))
 	{
@@ -67,7 +67,7 @@ int	firstsortBA(t_list **stackA, t_list **stackB)
 		write(1, "sb\n",3);
 	}
 	op = op + rotate_pushBA(stackA, stackB, n);
-//	printStack(*stackA, *stackB);
+	printStack(*stackA, *stackB);
 //	write(1,"B", 1);
 //	printf("OP=%d\n",op);
 	return (op);
