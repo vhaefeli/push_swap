@@ -34,13 +34,17 @@ void	push(t_list **stack1, t_list **stack2);
 void	printStack(t_list *stackA, t_list *stackB);
 int		check_order(t_list *stack, char c, int n);
 void	swap_or_not(t_list **stackA, t_list **stackB);
-void	swap_or_not2(t_list **stackA, t_list **stackB);
+int		swap_or_not2(t_list **stackA, t_list **stackB);
 int		middlevalue(t_list *stack);
 int		rotate_pushAB(t_list **stackA, t_list **stackB, int n);
 int		rotate_pushBA(t_list **stackA, t_list **stackB, int n);
+int		rotate_swap(t_list **stackA, t_list **stackB);
 void	pushback(t_list **stackA, t_list **stackB, int n);
 int		firstsortAB(t_list **stackA, t_list **stackB);
 int		firstsortBA(t_list **stackA, t_list **stackB);
 int		secondsort(t_list **stackA, t_list **stackB, int op);
+
+int smallsort(t_list **stackA, t_list **stackB, int L);
+int minisort(t_list **stackA);
 
 #endif

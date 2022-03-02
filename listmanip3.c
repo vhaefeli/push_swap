@@ -6,7 +6,7 @@
 /*   By: vhaefeli <marvin@42lausanne.ch>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/28 14:04:13 by vhaefeli          #+#    #+#             */
-/*   Updated: 2022/03/01 17:48:01 by vhaefeli         ###   ########.fr       */
+/*   Updated: 2022/03/02 17:30:36 by vhaefeli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,9 +97,9 @@ void	swap_or_not(t_list **stackA, t_list **stackB)
 //		write(1,"S0",2);
 }
 
-void	swap_or_not2(t_list **stackA, t_list **stackB)
+int	swap_or_not2(t_list **stackA, t_list **stackB)
 {
-//	write(1, "S2",2);
+	//	write(1, "S2",2);
 	if (*stackB && ft_bigger(*stackA, (*stackA)->next) && ft_smaller(*stackB, (*stackB)->next))
 	{
 		swap(stackA);
@@ -117,8 +117,9 @@ void	swap_or_not2(t_list **stackA, t_list **stackB)
 		swap(stackB);
 		write(1, "sb\n",3);
 	}
-//	else
-//		write(1,"S0",2);
+	else
+		return (0);
+	return (1);
 }
 
 int	middlevalue(t_list *stack)
@@ -150,7 +151,7 @@ int	rotate_pushAB(t_list **stackA, t_list **stackB, int n)
 		rotate(stackA);
 		write(1, "ra\n",3);
 	}
-	else if (*stackB && ft_smaller(*stackB, (*stackB)->next) )
+	else if (*stackB && ft_smaller(*stackB, ft_lstlast(*stackB)))
 	{
 		rotate(stackB);
 		push(stackA, stackB);
@@ -182,6 +183,28 @@ int	rotate_pushBA(t_list **stackA, t_list **stackB, int n)
 	return (0);
 }
 
+int	rotate_swap(t_list **stackA, t_list **stackB)
+{
+	if (*stackB && ft_bigger(*stackA, ft_lstlast(*stackA)) && ft_smaller(*stackB, ft_lstlast(*stackB)))
+	{
+		rotate(stackA);
+		rotate(stackB);
+		write(1, "rr\n",3);
+	}
+	else if (ft_bigger(*stackA, ft_lstlast(*stackA)))
+	{
+		rotate(stackA);
+		write(1, "ra\n",3);
+	}
+	else if (*stackB && ft_smaller(*stackB, ft_lstlast(*stackB)) )
+	{
+		rotate(stackB);
+		write(1, "rb\n", 3);
+	}
+	else
+		return (swap_or_not2(stackA, stackB));
+	return (1 + swap_or_not2(stackA, stackB));
+}
 void pushback(t_list **stackA, t_list **stackB, int n)
 {
 //	write(1,"PB", 2);
