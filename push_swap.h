@@ -28,6 +28,7 @@ t_list	*ft_lstlast(t_list *lst);
 void	lst_del(t_list **stack);
 t_list	*ft_splittolst(char *str);
 t_list	*fill_list(int nbn, char **nb);
+int		checkarg(t_list *stack);
 
 void	swap(t_list **stack);
 void	rotate(t_list **stack);

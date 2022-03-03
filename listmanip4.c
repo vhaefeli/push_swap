@@ -35,9 +35,10 @@ int	ft_atoi(const char *str)
 			nbr = (nbr * 10) + (*str - 48);
 		}
 		else
-			return (nbr * sig);
+			return (0);
 		str++;
 	}
+	printf("int: %d\n", nbr * sig);
 	return (nbr * sig);
 }
 

@@ -21,13 +21,13 @@ int main(int argc, char **argv)
 
 	stackB = NULL;
 	stackA = fill_list(argc, argv);
-	if (!stackA)
+	if (checkarg(stackA) == 0)
 	{
 		printf("ERROR");
 		return (0);
 	}
-	printf("la stack s'est bien remplie\n\n");
-	printStack(stackA, stackB);
+//	printf("la stack s'est bien remplie\n\n");
+//	printStack(stackA, stackB);
 	while (check_order(stackA, 'i', ft_lstsize(stackA)))
 		op = firstsortAB(&stackA, &stackB);
 //	printStack(stackA, stackB);
@@ -57,7 +57,7 @@ int main(int argc, char **argv)
 		op = secondsort(&stackA, &stackB, op);
 	}
 	pushback(&stackA, &stackB, ft_lstsize(stackB));
-//	printStack(stackA, stackB);
+	printStack(stackA, stackB);
 //	write(1, "\nsorted!\n", 9);
 	lst_del(&stackA);
 	return (0);

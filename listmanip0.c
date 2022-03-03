@@ -43,21 +43,65 @@ t_list	*ft_splittolst(char *str)
 	char	*temp;
 
 	temp = str;
-	while( *str != ' ')
+	while( *str != ' ' && *str != '\0')
 		str++;
+	if (*str == '\0')
+		return (NULL);
 	*str = '\0';
 	str++;
 	stackA = ft_lstnew2(temp);
 	while (*str)
 	{
 		temp = str;
-		while( *str != ' ')
+		while( *str != ' ' && *str != '\0')
 			str++;
-		*str = '\0';
-		str++;
+		if (*str == ' ')
+		{
+			*str = '\0';
+			str++;
+		}
+		while (*str == ' ')
+			str++;	
 		new = ft_lstnew2(temp);
 		ft_lstadd_back(&stackA, new);
 	}
 	return (stackA);
 }
 
+int	checkarg(t_list *stack)
+{
+	t_list	*temp;
+
+	if (!stack)
+		return (0);
+	while (stack->next)
+	{
+		if (stack->nbr == 0)
+		{
+			while(*(stack->content))
+			{
+				if (*(stack->content) != '0')
+				   return (0);
+				(stack->content)++;
+			}
+		}
+		temp = stack;
+		while (temp->next)
+		{
+			if (stack->nbr == temp->next->nbr)
+				return (0);
+			temp = temp->next;
+		}
+		stack = stack->next;
+	}
+	if (stack->nbr == 0)
+	{
+		while(*(stack->content))
+		{
+			if (*(stack->content) != '0')
+			   return (0);
+			(stack->content)++;
+		}
+	}
+	return (1);
+}	
