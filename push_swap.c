@@ -6,11 +6,12 @@
 /*   By: vhaefeli <marvin@42lausanne.ch>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/28 14:04:13 by vhaefeli          #+#    #+#             */
-/*   Updated: 2022/03/02 17:30:48 by vhaefeli         ###   ########.fr       */
+/*   Updated: 2022/03/03 12:01:13 by vhaefeli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
+
 
 int main(int argc, char **argv)
 {
@@ -25,8 +26,8 @@ int main(int argc, char **argv)
 		printf("ERROR");
 		return (0);
 	}
-//	printf("la stack s'est bien remplie\n\n");
-//	printStack(stackA, stackB);
+	printf("la stack s'est bien remplie\n\n");
+	printStack(stackA, stackB);
 	while (check_order(stackA, 'i', ft_lstsize(stackA)))
 		op = firstsortAB(&stackA, &stackB);
 //	printStack(stackA, stackB);

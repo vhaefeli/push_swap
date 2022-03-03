@@ -6,7 +6,7 @@
 /*   By: vhaefeli <marvin@42lausanne.ch>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/28 14:04:13 by vhaefeli          #+#    #+#             */
-/*   Updated: 2022/02/24 14:09:01 by vhaefeli         ###   ########.fr       */
+/*   Updated: 2022/03/03 11:58:37 by vhaefeli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,4 +66,17 @@ void	lst_del(t_list **stack)
 		free (*stack);
 		*stack = (*stack)->next;
 	}
+}
+
+void	ft_lstadd_back(t_list **alst, t_list *new)
+{
+	t_list	*lastel;
+
+	if (!new)
+		return ;
+	lastel = ft_lstlast(*alst);
+	if (!lastel)
+		*alst = new;
+	else
+		lastel->next = new;
 }
