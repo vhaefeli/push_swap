@@ -6,7 +6,7 @@
 /*   By: vhaefeli <marvin@42lausanne.ch>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/28 14:04:13 by vhaefeli          #+#    #+#             */
-/*   Updated: 2022/03/02 17:30:45 by vhaefeli         ###   ########.fr       */
+/*   Updated: 2022/03/04 14:18:45 by vhaefeli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ int	firstsortAB(t_list **stackA, t_list **stackB)
 	L = ft_lstsize(*stackA);
 //	printf("L=%d",L);
 	if (L < 8)
-		smallsort(stackA, stackB, L);
+		smallsortA(stackA, stackB, L);
 	else
 	{
 		n = middlevalue(*stackA);
@@ -55,6 +55,8 @@ int	firstsortBA(t_list **stackA, t_list **stackB)
 
 	op = 0;
 	L = ft_lstsize(*stackB);
+	if (L < 8)
+		smallsortB(stackA, stackB, L);
 	n = middlevalue(*stackB);
 	L--;
 //	printf("n=%d",n);
@@ -93,14 +95,14 @@ int	secondsort(t_list **stackA, t_list **stackB,int op)
 	return (op);
 }
 
-int smallsort(t_list **stackA, t_list **stackB, int L)
+int smallsortA(t_list **stackA, t_list **stackB, int L)
 {
 	int k;
 	int op;
 
 	op = 0;
 	if (L < 4)
-		minisort(stackA);
+		minisortA(stackA);
 	else
 	{
 		while (L > 2)
@@ -108,7 +110,6 @@ int smallsort(t_list **stackA, t_list **stackB, int L)
 			k = 1;
 			while (k)
 			{
-	//			printf("k= %d",k);
 				k = rotate_swap(stackA, stackB);
 	//			printStack(*stackA, *stackB);
 			}
@@ -139,7 +140,7 @@ int smallsort(t_list **stackA, t_list **stackB, int L)
 
 
 
-int minisort(t_list **stackA)
+int minisortA(t_list **stackA)
 {
 	if ((*stackA)->next->nbr > ft_lstlast(*stackA)->nbr)
 	{
@@ -163,6 +164,80 @@ int minisort(t_list **stackA)
 	{
 		swap(stackA);
 		write(1, "sa\n", 3);
+	}
+	return (0);
+}
+
+int smallsortB(t_list **stackA, t_list **stackB, int L)
+{
+	int k;
+	int op;
+
+	op = 0;
+	if (L < 4)
+		minisortB(stackB);
+	else
+	{
+		while (L > 2)
+		{
+			k = 1;
+			while (k)
+			{
+	//			printf("k= %d",k);
+				k = rotate_swap(stackA, stackB);
+	//			printStack(*stackA, *stackB);
+			}
+			if (!check_order(*stackB, 'd', ft_lstsize(*stackB)))
+					break;
+			push(stackB , stackA);
+			write(1, "pa\n", 3);
+			op++;
+			L--;
+	//		printStack(*stackA, *stackB);
+		}
+		while ((*stackA)->next)
+		{
+			swap_or_not2(stackA, stackB);
+			push(stackB , stackA);
+			write(1, "pa\n", 3);
+			op++;
+	//		printStack(*stackA, *stackB);
+		}
+
+		push(stackB, stackA);
+		write(1, "pa\n", 3);
+		op++;
+	//	printStack(*stackA, *stackB);
+	}
+	return (op);
+}
+
+
+
+int minisortB(t_list **stackB)
+{
+	if ((*stackB)->next->nbr > ft_lstlast(*stackB)->nbr)
+	{
+		if ((*stackB)->nbr > (*stackB)->next->nbr)
+		{
+			rotate(stackB);
+			write(1, "rb\n", 3);
+		}
+		else
+		{
+			rev_rotate(stackB);
+			write(1, "rrb\n", 4);
+		}
+	}
+	if ((*stackB)->nbr > ft_lstlast(*stackB)->nbr)
+	{
+		rotate(stackB);
+		write(1, "rb\n", 3);
+	}
+	if ((*stackB)->nbr > (*stackB)->next->nbr)
+	{
+		swap(stackB);
+		write(1, "sb\n", 3);
 	}
 	return (0);
 }

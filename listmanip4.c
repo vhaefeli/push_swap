@@ -6,13 +6,13 @@
 /*   By: vhaefeli <marvin@42lausanne.ch>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/28 14:04:13 by vhaefeli          #+#    #+#             */
-/*   Updated: 2022/03/01 11:20:09 by vhaefeli         ###   ########.fr       */
+/*   Updated: 2022/03/04 11:28:36 by vhaefeli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-int	ft_atoi(const char *str)
+int	ft_atoistrong(const char *str)
 {
 	int	nbr;
 	int	sig;
@@ -38,7 +38,6 @@ int	ft_atoi(const char *str)
 			return (0);
 		str++;
 	}
-	printf("int: %d\n", nbr * sig);
 	return (nbr * sig);
 }
 

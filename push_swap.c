@@ -6,7 +6,7 @@
 /*   By: vhaefeli <marvin@42lausanne.ch>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/28 14:04:13 by vhaefeli          #+#    #+#             */
-/*   Updated: 2022/03/03 12:01:13 by vhaefeli         ###   ########.fr       */
+/*   Updated: 2022/03/04 18:47:45 by vhaefeli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,16 +21,17 @@ int main(int argc, char **argv)
 
 	stackB = NULL;
 	stackA = fill_list(argc, argv);
-	if (checkarg(stackA) == 0)
+	if (checkarg(stackA) == 0 || checkintminmax(stackA) == 0)
 	{
 		printf("ERROR");
+		lst_del(&stackA);
 		return (0);
 	}
 //	printf("la stack s'est bien remplie\n\n");
 //	printStack(stackA, stackB);
 	while (check_order(stackA, 'i', ft_lstsize(stackA)))
 		op = firstsortAB(&stackA, &stackB);
-//	printStack(stackA, stackB);
+	printStack(stackA, stackB);
 //	printf("OP:%d\n",op);
 	if (!stackB)
 	{
@@ -50,14 +51,14 @@ int main(int argc, char **argv)
 		pushback(&stackA, &stackB, op);
 //	write(1,"\nXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX\n",32);
 	op = firstsortBA(&stackA, &stackB);
-//	printStack(stackA, stackB);
+	printStack(stackA, stackB);
 	while (check_order(stackB, 'd', ft_lstsize(stackB)) == 1 ||
 			check_order(stackA, 'i', ft_lstsize(stackA)) == 1)
 	{
 		op = secondsort(&stackA, &stackB, op);
 	}
 	pushback(&stackA, &stackB, ft_lstsize(stackB));
-	printStack(stackA, stackB);
+//	printStack(stackA, stackB);
 //	write(1, "\nsorted!\n", 9);
 	lst_del(&stackA);
 	return (0);

@@ -6,7 +6,7 @@
 /*   By: vhaefeli <marvin@42lausanne.ch>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/28 14:04:13 by vhaefeli          #+#    #+#             */
-/*   Updated: 2022/03/03 11:58:37 by vhaefeli         ###   ########.fr       */
+/*   Updated: 2022/03/04 11:28:58 by vhaefeli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ t_list	*ft_lstnew2(void *content)
 	if (!list)
 		return (NULL);
 	list->content = content;
-	list->nbr = ft_atoi(content);
+	list->nbr = ft_atoistrong(content);
 	list->next = NULL;
 	return (list);
 }

@@ -15,7 +15,7 @@ typedef struct	s_list
 	struct	s_list	*next;
 }					t_list;
 
-int		ft_atoi(const char *str);
+int		ft_atoistrong(const char *str);
 int		ft_bigger(t_list *stack1, t_list *stack2);
 int		ft_smaller(t_list *stack1, t_list *stack2);
 int		ft_biggernb(t_list *stack1, int n);
@@ -29,6 +29,7 @@ void	lst_del(t_list **stack);
 t_list	*ft_splittolst(char *str);
 t_list	*fill_list(int nbn, char **nb);
 int		checkarg(t_list *stack);
+int		checkintminmax(t_list *stack);
 
 void	swap(t_list **stack);
 void	rotate(t_list **stack);
@@ -46,8 +47,9 @@ void	pushback(t_list **stackA, t_list **stackB, int n);
 int		firstsortAB(t_list **stackA, t_list **stackB);
 int		firstsortBA(t_list **stackA, t_list **stackB);
 int		secondsort(t_list **stackA, t_list **stackB, int op);
-
-int smallsort(t_list **stackA, t_list **stackB, int L);
-int minisort(t_list **stackA);
+int 	smallsortA(t_list **stackA, t_list **stackB, int L);
+int 	minisortA(t_list **stackA);
+int 	smallsortB(t_list **stackA, t_list **stackB, int L);
+int 	minisortB(t_list **stackA);
 
 #endif
