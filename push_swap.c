@@ -6,7 +6,7 @@
 /*   By: vhaefeli <marvin@42lausanne.ch>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/28 14:04:13 by vhaefeli          #+#    #+#             */
-/*   Updated: 2022/03/04 18:47:45 by vhaefeli         ###   ########.fr       */
+/*   Updated: 2022/03/10 15:04:40 by vhaefeli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,7 @@ int main(int argc, char **argv)
 //	printStack(stackA, stackB);
 	while (check_order(stackA, 'i', ft_lstsize(stackA)))
 		op = firstsortAB(&stackA, &stackB);
+	write(1, "end of 1st sort\n", 16);
 	printStack(stackA, stackB);
 //	printf("OP:%d\n",op);
 	if (!stackB)
@@ -57,9 +58,10 @@ int main(int argc, char **argv)
 	{
 		op = secondsort(&stackA, &stackB, op);
 	}
+	write(1,"a\n",2);
 	pushback(&stackA, &stackB, ft_lstsize(stackB));
-//	printStack(stackA, stackB);
-//	write(1, "\nsorted!\n", 9);
+	printStack(stackA, stackB);
+	write(1, "\nsorted!\n", 9);
 	lst_del(&stackA);
 	return (0);
 }

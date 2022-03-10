@@ -6,7 +6,7 @@
 /*   By: vhaefeli <marvin@42lausanne.ch>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/28 14:04:13 by vhaefeli          #+#    #+#             */
-/*   Updated: 2022/03/04 14:18:45 by vhaefeli         ###   ########.fr       */
+/*   Updated: 2022/03/10 17:08:06 by vhaefeli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,11 +39,28 @@ int	firstsortAB(t_list **stackA, t_list **stackB)
 			swap(stackB);
 			write(1, "sb\n",3);
 		}
-		op = op + rotate_pushAB(stackA, stackB, n);
 	}
-//	printStack(*stackA, *stackB);
-//	printf("OP=%d\n",op);
+
+	printf("OP=%d\n",op);
 	return (op);
+}
+
+int	checkendsort(t_list *stack)
+{
+	int nb;
+
+	nb = (stack)->nbr;
+	while (stack)
+	{
+		printf("nbr = %d\n",(stack)->nbr);
+		if ((stack)->nbr > nb)
+		   break;
+		stack = (stack)->next;
+	}
+	if (!stack)
+		return (1);
+	else
+		return (0);
 }
 
 
@@ -52,6 +69,7 @@ int	firstsortBA(t_list **stackA, t_list **stackB)
 	int	op;
 	int L;
 	int n;
+	int rp;
 
 	op = 0;
 	L = ft_lstsize(*stackB);
@@ -59,22 +77,25 @@ int	firstsortBA(t_list **stackA, t_list **stackB)
 		smallsortB(stackA, stackB, L);
 	n = middlevalue(*stackB);
 	L--;
-//	printf("n=%d",n);
+	printf("n=%d",n);
 //	write(1,"A2", 1);
 	while (L--)
 	{
 //		printf("L=%d",L);	
 		swap_or_not(stackA, stackB);
-		op = op + rotate_pushBA(stackA, stackB, n);
-//		usleep(1000);
-//		printStack(*stackA, *stackB);		
+		rp = rotate_pushBA(stackA, stackB, n);
+		printf("rp:%d\n",rp);
+		if (rp == 2 && checkendsort(*stackB) == 1)
+			break;
+		if (rp == 1)
+			op++;
+		printStack(*stackA, *stackB);		
 	}
 	if (ft_smaller(*stackB, (*stackB)->next) && ft_bigger(*stackB, ft_lstlast(*stackB)))
 	{
 		swap(stackB);
 		write(1, "sb\n",3);
 	}
-	op = op + rotate_pushBA(stackA, stackB, n);
 //	printStack(*stackA, *stackB);
 //	write(1,"B", 1);
 //	printf("OP=%d\n",op);
@@ -121,7 +142,7 @@ int smallsortA(t_list **stackA, t_list **stackB, int L)
 			L--;
 	//		printStack(*stackA, *stackB);
 		}
-		while ((*stackB)->next)
+		while (stackB)
 		{
 			swap_or_not2(stackA, stackB);
 			push(stackB , stackA);
@@ -129,11 +150,6 @@ int smallsortA(t_list **stackA, t_list **stackB, int L)
 			op++;
 	//		printStack(*stackA, *stackB);
 		}
-
-		push(stackB, stackA);
-		write(1, "pa\n", 3);
-		op++;
-	//	printStack(*stackA, *stackB);
 	}
 	return (op);
 }
@@ -185,7 +201,7 @@ int smallsortB(t_list **stackA, t_list **stackB, int L)
 			{
 	//			printf("k= %d",k);
 				k = rotate_swap(stackA, stackB);
-	//			printStack(*stackA, *stackB);
+				printStack(*stackA, *stackB);
 			}
 			if (!check_order(*stackB, 'd', ft_lstsize(*stackB)))
 					break;
@@ -193,21 +209,16 @@ int smallsortB(t_list **stackA, t_list **stackB, int L)
 			write(1, "pa\n", 3);
 			op++;
 			L--;
-	//		printStack(*stackA, *stackB);
+			printStack(*stackA, *stackB);
 		}
-		while ((*stackA)->next)
+		while (*stackB)
 		{
 			swap_or_not2(stackA, stackB);
 			push(stackB , stackA);
 			write(1, "pa\n", 3);
 			op++;
-	//		printStack(*stackA, *stackB);
+			printStack(*stackA, *stackB);
 		}
-
-		push(stackB, stackA);
-		write(1, "pa\n", 3);
-		op++;
-	//	printStack(*stackA, *stackB);
 	}
 	return (op);
 }

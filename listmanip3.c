@@ -6,7 +6,7 @@
 /*   By: vhaefeli <marvin@42lausanne.ch>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/28 14:04:13 by vhaefeli          #+#    #+#             */
-/*   Updated: 2022/03/04 12:33:02 by vhaefeli         ###   ########.fr       */
+/*   Updated: 2022/03/10 15:01:58 by vhaefeli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,7 +75,6 @@ int	check_order(t_list *stack, char c, int n)
 
 void	swap_or_not(t_list **stackA, t_list **stackB)
 {
-//	write(1, "S",1);
 	if (*stackB && ft_bigger(*stackA, (*stackA)->next) && ft_smaller(*stackB, (*stackB)->next) && ft_bigger(*stackB, ft_lstlast(*stackB)))
 	{
 		swap(stackA);
@@ -84,7 +83,6 @@ void	swap_or_not(t_list **stackA, t_list **stackB)
 	}
 	else if (ft_bigger(*stackA, (*stackA)->next))
 	{
-//		write(1,"S2", 2);
 		swap(stackA);
 		write(1, "sa\n",3);
 	}
@@ -93,13 +91,10 @@ void	swap_or_not(t_list **stackA, t_list **stackB)
 		swap(stackB);
 		write(1, "sb\n",3);
 	}
-//	else
-//		write(1,"S0",2);
 }
 
 int	swap_or_not2(t_list **stackA, t_list **stackB)
 {
-	//	write(1, "S2",2);
 	if (*stackB && ft_bigger(*stackA, (*stackA)->next) && ft_smaller(*stackB, (*stackB)->next))
 	{
 		swap(stackA);
@@ -108,7 +103,6 @@ int	swap_or_not2(t_list **stackA, t_list **stackB)
 	}
 	else if (ft_bigger(*stackA, (*stackA)->next))
 	{
-//		write(1,"S2", 2);
 		swap(stackA);
 		write(1, "sa\n",3);
 	}
@@ -173,6 +167,7 @@ int	rotate_pushBA(t_list **stackA, t_list **stackB, int n)
 	{
 		rotate(stackB);
 		write(1, "rb\n",3);
+		return (2);
 	}
 	else
 	{
@@ -205,6 +200,7 @@ int	rotate_swap(t_list **stackA, t_list **stackB)
 		return (swap_or_not2(stackA, stackB));
 	return (1 + swap_or_not2(stackA, stackB));
 }
+
 void pushback(t_list **stackA, t_list **stackB, int n)
 {
 //	write(1,"PB", 2);
