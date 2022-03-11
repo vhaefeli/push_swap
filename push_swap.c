@@ -31,8 +31,8 @@ int main(int argc, char **argv)
 //	printStack(stackA, stackB);
 	while (check_order(stackA, 'i', ft_lstsize(stackA)))
 		op = firstsortAB(&stackA, &stackB);
-	write(1, "end of 1st sort\n", 16);
-	printStack(stackA, stackB);
+//	write(1, "end of 1st sort\n", 16);
+//	printStack(stackA, stackB);
 //	printf("OP:%d\n",op);
 	if (!stackB)
 	{
@@ -52,16 +52,17 @@ int main(int argc, char **argv)
 		pushback(&stackA, &stackB, op);
 //	write(1,"\nXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX\n",32);
 	op = firstsortBA(&stackA, &stackB);
-	printStack(stackA, stackB);
+//	printStack(stackA, stackB);
 	while (check_order(stackB, 'd', ft_lstsize(stackB)) == 1 ||
 			check_order(stackA, 'i', ft_lstsize(stackA)) == 1)
 	{
 		op = secondsort(&stackA, &stackB, op);
 	}
-	write(1,"a\n",2);
-	pushback(&stackA, &stackB, ft_lstsize(stackB));
-	printStack(stackA, stackB);
-	write(1, "\nsorted!\n", 9);
+//	write(1,"a\n",2);
+	if (stackB)
+		pushback(&stackA, &stackB, ft_lstsize(stackB));
+//	printStack(stackA, stackB);
+//	write(1, "\nsorted!\n", 9);
 	lst_del(&stackA);
 	return (0);
 }

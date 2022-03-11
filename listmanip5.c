@@ -18,6 +18,7 @@ int	firstsortAB(t_list **stackA, t_list **stackB)
 	int L;
 	int n;
 
+	write(1,"firstsortAB\n",12);
 	op = 0;
 	L = ft_lstsize(*stackA);
 //	printf("L=%d",L);
@@ -41,7 +42,7 @@ int	firstsortAB(t_list **stackA, t_list **stackB)
 		}
 	}
 
-	printf("OP=%d\n",op);
+//	printf("OP=%d\n",op);
 	return (op);
 }
 
@@ -52,7 +53,7 @@ int	checkendsort(t_list *stack)
 	nb = (stack)->nbr;
 	while (stack)
 	{
-		printf("nbr = %d\n",(stack)->nbr);
+//		printf("nbr = %d\n",(stack)->nbr);
 		if ((stack)->nbr > nb)
 		   break;
 		stack = (stack)->next;
@@ -71,48 +72,53 @@ int	firstsortBA(t_list **stackA, t_list **stackB)
 	int n;
 	int rp;
 
+	write(1,"firstsortBA\n",12);
 	op = 0;
 	L = ft_lstsize(*stackB);
 	if (L < 8)
 		smallsortB(stackA, stackB, L);
-	n = middlevalue(*stackB);
-	L--;
-	printf("n=%d",n);
-//	write(1,"A2", 1);
-	while (L--)
+	else
 	{
-//		printf("L=%d",L);	
-		swap_or_not(stackA, stackB);
-		rp = rotate_pushBA(stackA, stackB, n);
-		printf("rp:%d\n",rp);
-		if (rp == 2 && checkendsort(*stackB) == 1)
-			break;
-		if (rp == 1)
-			op++;
-		printStack(*stackA, *stackB);		
+		n = middlevalue(*stackB);
+		L--;
+//		printf("n=%d",n);
+		while (L--)
+		{
+//			printf("L=%d",L);	
+			swap_or_not2(stackA, stackB);
+			rp = rotate_pushBA(stackA, stackB, n);
+//			printf("rp:%d\n",rp);
+			if (rp == 2 && checkendsort(*stackB) == 1)
+				break;
+			if (rp == 1)
+				op++;
+//			printStack(*stackA, *stackB);		
+		}
+		if (ft_smaller(*stackB, (*stackB)->next) && ft_bigger(*stackB, ft_lstlast(*stackB)))
+		{
+			swap(stackB);
+			write(1, "sb\n",3);
+		}
+//		printStack(*stackA, *stackB);
+//		write(1,"B", 1);
+//		printf("OP=%d\n",op);
 	}
-	if (ft_smaller(*stackB, (*stackB)->next) && ft_bigger(*stackB, ft_lstlast(*stackB)))
-	{
-		swap(stackB);
-		write(1, "sb\n",3);
-	}
-//	printStack(*stackA, *stackB);
-//	write(1,"B", 1);
-//	printf("OP=%d\n",op);
 	return (op);
 }
 int	secondsort(t_list **stackA, t_list **stackB,int op)
 {	
+	write(1,"secondsort\n",11);
 //	write(1,"C", 1);
 	if (check_order(*stackA, 'i', ft_lstsize(*stackA)))
-		while (op--)
+		while (op-- && check_order(*stackA, 'i', op))
 		{
 			swap_or_not2(stackA, stackB);
 			push(stackA, stackB);
 			write(1,"pb\n", 3);
+//			printStack(*stackA, *stackB);
 		}
 	op = firstsortBA(stackA, stackB);	
-//	write(1,"D", 1);
+
 	return (op);
 }
 
@@ -121,6 +127,7 @@ int smallsortA(t_list **stackA, t_list **stackB, int L)
 	int k;
 	int op;
 
+	write(1,"smallsortA\n",11);
 	op = 0;
 	if (L < 4)
 		minisortA(stackA);
@@ -158,6 +165,8 @@ int smallsortA(t_list **stackA, t_list **stackB, int L)
 
 int minisortA(t_list **stackA)
 {
+	write(1,"minisortA\n",10);
+
 	if ((*stackA)->next->nbr > ft_lstlast(*stackA)->nbr)
 	{
 		if ((*stackA)->nbr > (*stackA)->next->nbr)
@@ -189,6 +198,8 @@ int smallsortB(t_list **stackA, t_list **stackB, int L)
 	int k;
 	int op;
 
+	write(1,"smallsortB\n",11);
+
 	op = 0;
 	if (L < 4)
 		minisortB(stackB);
@@ -201,7 +212,7 @@ int smallsortB(t_list **stackA, t_list **stackB, int L)
 			{
 	//			printf("k= %d",k);
 				k = rotate_swap(stackA, stackB);
-				printStack(*stackA, *stackB);
+//				printStack(*stackA, *stackB);
 			}
 			if (!check_order(*stackB, 'd', ft_lstsize(*stackB)))
 					break;
@@ -209,7 +220,7 @@ int smallsortB(t_list **stackA, t_list **stackB, int L)
 			write(1, "pa\n", 3);
 			op++;
 			L--;
-			printStack(*stackA, *stackB);
+//			printStack(*stackA, *stackB);
 		}
 		while (*stackB)
 		{
@@ -217,7 +228,7 @@ int smallsortB(t_list **stackA, t_list **stackB, int L)
 			push(stackB , stackA);
 			write(1, "pa\n", 3);
 			op++;
-			printStack(*stackA, *stackB);
+//			printStack(*stackA, *stackB);
 		}
 	}
 	return (op);
@@ -227,6 +238,8 @@ int smallsortB(t_list **stackA, t_list **stackB, int L)
 
 int minisortB(t_list **stackB)
 {
+	write(1,"minisortB\n",10);
+
 	if ((*stackB)->next->nbr > ft_lstlast(*stackB)->nbr)
 	{
 		if ((*stackB)->nbr > (*stackB)->next->nbr)

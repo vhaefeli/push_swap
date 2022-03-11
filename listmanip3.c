@@ -41,12 +41,12 @@ void printStack(t_list *stackA, t_list *stackB)
 int	check_order(t_list *stack, char c, int n)
 // n is the nbr of element to check if it's all the liste put a ft_lstsize
 {
-//	printf("L:%d",n);
+	if (!stack)
+		return (0);
 	if (c == 'i')
 	{
 		while (n > 1 && stack->nbr < (stack->next)->nbr)
 		{	
-//			write(1, "X",1);
 			stack = stack->next;
 			n--;
 		}
@@ -54,7 +54,6 @@ int	check_order(t_list *stack, char c, int n)
 			return (0);
 		else
 		{
-//			write(1, "W", 1);
 			return (1);
 		}
 	}
@@ -203,7 +202,7 @@ int	rotate_swap(t_list **stackA, t_list **stackB)
 
 void pushback(t_list **stackA, t_list **stackB, int n)
 {
-//	write(1,"PB", 2);
+	write(1,"Pushback\n", 9);
 	if (n == 0)
 	{
 		while ((*stackB)->next != NULL)
@@ -211,7 +210,7 @@ void pushback(t_list **stackA, t_list **stackB, int n)
 			push(stackB, stackA);
 			write(1, "pa\n", 3);
 //			printStack(*stackA, *stackB);
-	}
+		}
 	}
 	else
 	{
