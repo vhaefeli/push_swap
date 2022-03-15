@@ -6,7 +6,7 @@
 /*   By: vhaefeli <marvin@42lausanne.ch>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/28 14:04:13 by vhaefeli          #+#    #+#             */
-/*   Updated: 2022/03/10 15:01:58 by vhaefeli         ###   ########.fr       */
+/*   Updated: 2022/03/11 17:28:44 by vhaefeli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -118,16 +118,17 @@ int	swap_or_not2(t_list **stackA, t_list **stackB)
 int	middlevalue(t_list *stack)
 {
 	int	L;
-	int i;
+	int n;
 
-	i = 1;
+	n = 0;
 	L = ft_lstsize(stack);
-	while (i < L / 2)
+	while (stack)
 	{
+		n = n + stack->nbr;
 		stack = stack->next;
-		i++;
 	}
-	return (stack->nbr);
+//	printf("n = %d, L = %d\n", n,L);
+	return (n/L);
 }
 
 int	rotate_pushAB(t_list **stackA, t_list **stackB, int n)
@@ -202,7 +203,7 @@ int	rotate_swap(t_list **stackA, t_list **stackB)
 
 void pushback(t_list **stackA, t_list **stackB, int n)
 {
-	write(1,"Pushback\n", 9);
+//	write(1,"Pushback\n", 9);
 	if (n == 0)
 	{
 		while ((*stackB)->next != NULL)

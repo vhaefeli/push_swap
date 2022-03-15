@@ -6,7 +6,7 @@
 /*   By: vhaefeli <marvin@42lausanne.ch>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/28 14:04:13 by vhaefeli          #+#    #+#             */
-/*   Updated: 2022/03/10 17:08:06 by vhaefeli         ###   ########.fr       */
+/*   Updated: 2022/03/11 17:28:22 by vhaefeli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,14 +21,15 @@ int	firstsortAB(t_list **stackA, t_list **stackB)
 	write(1,"firstsortAB\n",12);
 	op = 0;
 	L = ft_lstsize(*stackA);
+	if (L < 4)
+		minisortA(stackA);
+//	printStack(*stackA, *stackB);
 //	printf("L=%d",L);
-	if (L < 8)
-		smallsortA(stackA, stackB, L);
 	else
 	{
 		n = middlevalue(*stackA);
 //		printf("n=%d",n);
-		while (--L)
+		while (L--)
 		{	
 			swap_or_not(stackA, stackB);
 			op = op + rotate_pushAB(stackA, stackB, n);
@@ -41,7 +42,6 @@ int	firstsortAB(t_list **stackA, t_list **stackB)
 			write(1, "sb\n",3);
 		}
 	}
-
 //	printf("OP=%d\n",op);
 	return (op);
 }
@@ -72,7 +72,7 @@ int	firstsortBA(t_list **stackA, t_list **stackB)
 	int n;
 	int rp;
 
-	write(1,"firstsortBA\n",12);
+//	write(1,"firstsortBA\n",12);
 	op = 0;
 	L = ft_lstsize(*stackB);
 	if (L < 8)
@@ -80,12 +80,12 @@ int	firstsortBA(t_list **stackA, t_list **stackB)
 	else
 	{
 		n = middlevalue(*stackB);
-		L--;
 //		printf("n=%d",n);
 		while (L--)
 		{
 //			printf("L=%d",L);	
 			swap_or_not2(stackA, stackB);
+//			printStack(*stackA, *stackB);
 			rp = rotate_pushBA(stackA, stackB, n);
 //			printf("rp:%d\n",rp);
 			if (rp == 2 && checkendsort(*stackB) == 1)
@@ -107,7 +107,7 @@ int	firstsortBA(t_list **stackA, t_list **stackB)
 }
 int	secondsort(t_list **stackA, t_list **stackB,int op)
 {	
-	write(1,"secondsort\n",11);
+//	write(1,"secondsort\n",11);
 //	write(1,"C", 1);
 	if (check_order(*stackA, 'i', ft_lstsize(*stackA)))
 		while (op-- && check_order(*stackA, 'i', op))
@@ -115,7 +115,7 @@ int	secondsort(t_list **stackA, t_list **stackB,int op)
 			swap_or_not2(stackA, stackB);
 			push(stackA, stackB);
 			write(1,"pb\n", 3);
-//			printStack(*stackA, *stackB);
+//		printStack(*stackA, *stackB);
 		}
 	op = firstsortBA(stackA, stackB);	
 
@@ -127,7 +127,7 @@ int smallsortA(t_list **stackA, t_list **stackB, int L)
 	int k;
 	int op;
 
-	write(1,"smallsortA\n",11);
+//	write(1,"smallsortA\n",11);
 	op = 0;
 	if (L < 4)
 		minisortA(stackA);
@@ -165,30 +165,40 @@ int smallsortA(t_list **stackA, t_list **stackB, int L)
 
 int minisortA(t_list **stackA)
 {
-	write(1,"minisortA\n",10);
-
-	if ((*stackA)->next->nbr > ft_lstlast(*stackA)->nbr)
+//	write(1,"minisortA\n",10);
+	if (ft_lstsize(*stackA) < 3)
 	{
 		if ((*stackA)->nbr > (*stackA)->next->nbr)
+		{
+			swap(stackA);
+			write(1, "sa\n", 3);
+		}
+	}
+	else
+	{
+		if ((*stackA)->next->nbr > ft_lstlast(*stackA)->nbr)
+		{
+			if ((*stackA)->nbr > (*stackA)->next->nbr)
+			{
+				rotate(stackA);
+				write(1, "ra\n", 3);
+			}
+			else
+			{
+				rev_rotate(stackA);
+				write(1, "rra\n", 4);
+			}
+		}
+		if ((*stackA)->nbr > ft_lstlast(*stackA)->nbr)
 		{
 			rotate(stackA);
 			write(1, "ra\n", 3);
 		}
-		else
+		if ((*stackA)->nbr > (*stackA)->next->nbr)
 		{
-			rev_rotate(stackA);
-			write(1, "rra\n", 4);
+			swap(stackA);
+			write(1, "sa\n", 3);
 		}
-	}
-	if ((*stackA)->nbr > ft_lstlast(*stackA)->nbr)
-	{
-		rotate(stackA);
-		write(1, "ra\n", 3);
-	}
-	if ((*stackA)->nbr > (*stackA)->next->nbr)
-	{
-		swap(stackA);
-		write(1, "sa\n", 3);
 	}
 	return (0);
 }
@@ -198,7 +208,7 @@ int smallsortB(t_list **stackA, t_list **stackB, int L)
 	int k;
 	int op;
 
-	write(1,"smallsortB\n",11);
+//	write(1,"smallsortB\n",11);
 
 	op = 0;
 	if (L < 4)
@@ -238,7 +248,16 @@ int smallsortB(t_list **stackA, t_list **stackB, int L)
 
 int minisortB(t_list **stackB)
 {
-	write(1,"minisortB\n",10);
+//	write(1,"minisortB\n",10);
+//
+	if (ft_lstsize(*stackB) < 3)
+	{
+		if ((*stackB)->nbr > (*stackB)->next->nbr)
+		{
+			swap(stackB);
+			write(1, "sb\n", 3);
+		}
+	}
 
 	if ((*stackB)->next->nbr > ft_lstlast(*stackB)->nbr)
 	{

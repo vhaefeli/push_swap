@@ -6,7 +6,7 @@
 /*   By: vhaefeli <marvin@42lausanne.ch>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/28 14:04:13 by vhaefeli          #+#    #+#             */
-/*   Updated: 2022/03/10 15:04:40 by vhaefeli         ###   ########.fr       */
+/*   Updated: 2022/03/11 17:29:04 by vhaefeli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@ int main(int argc, char **argv)
 	int		op;
 	t_list	*stackA;
 	t_list	*stackB;
+	int 	L;
 
 	stackB = NULL;
 	stackA = fill_list(argc, argv);
@@ -29,8 +30,14 @@ int main(int argc, char **argv)
 	}
 //	printf("la stack s'est bien remplie\n\n");
 //	printStack(stackA, stackB);
-	while (check_order(stackA, 'i', ft_lstsize(stackA)))
-		op = firstsortAB(&stackA, &stackB);
+	L = ft_lstsize(stackA);
+	if (L < 8)
+		smallsortA(&stackA, &stackB, L);
+	else
+	{
+		while (check_order(stackA, 'i', ft_lstsize(stackA)))
+			op = firstsortAB(&stackA, &stackB);
+	}
 //	write(1, "end of 1st sort\n", 16);
 //	printStack(stackA, stackB);
 //	printf("OP:%d\n",op);
@@ -50,13 +57,13 @@ int main(int argc, char **argv)
 	}
 	if (check_order(stackB, 'd', op) == 0)
 		pushback(&stackA, &stackB, op);
-//	write(1,"\nXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX\n",32);
 	op = firstsortBA(&stackA, &stackB);
 //	printStack(stackA, stackB);
 	while (check_order(stackB, 'd', ft_lstsize(stackB)) == 1 ||
 			check_order(stackA, 'i', ft_lstsize(stackA)) == 1)
 	{
 		op = secondsort(&stackA, &stackB, op);
+//		printStack(stackA, stackB);
 	}
 //	write(1,"a\n",2);
 	if (stackB)
