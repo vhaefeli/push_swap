@@ -6,11 +6,12 @@
 /*   By: vhaefeli <marvin@42lausanne.ch>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/28 14:04:13 by vhaefeli          #+#    #+#             */
-/*   Updated: 2022/03/11 17:29:04 by vhaefeli         ###   ########.fr       */
+/*   Updated: 2022/04/04 17:10:39 by vhaefeli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
+
 
 
 int main(int argc, char **argv)
@@ -39,7 +40,7 @@ int main(int argc, char **argv)
 			op = firstsortAB(&stackA, &stackB);
 	}
 //	write(1, "end of 1st sort\n", 16);
-//	printStack(stackA, stackB);
+	printStack(stackA, stackB);
 //	printf("OP:%d\n",op);
 	if (!stackB)
 	{

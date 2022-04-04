@@ -7,13 +7,14 @@
 # include <string.h>
 # include <unistd.h>
 # include <stdarg.h>
+# include "libft.h"
 
-typedef struct	s_list
+typedef struct	s_listnb
 {
 	char			*content;
 	int				nbr;
 	struct	s_list	*next;
-}					t_list;
+}					t_listnb;
 
 int		ft_atoistrong(const char *str);
 int		ft_bigger(t_list *stack1, t_list *stack2);
