@@ -30,7 +30,7 @@ int main(int argc, char **argv)
 		return (0);
 	}
 //	printf("la stack s'est bien remplie\n\n");
-//	printStack(stackA, stackB);
+//	print_stack(stackA, stackB);
 	L = ft_lstsize(stackA);
 	if (L < 8)
 		smallsortA(&stackA, &stackB, L);
@@ -40,7 +40,7 @@ int main(int argc, char **argv)
 			op = firstsortAB(&stackA, &stackB);
 	}
 //	write(1, "end of 1st sort\n", 16);
-	printStack(stackA, stackB);
+	print_stack(stackA, stackB);
 //	printf("OP:%d\n",op);
 	if (!stackB)
 	{
@@ -51,7 +51,7 @@ int main(int argc, char **argv)
 	if (check_order(stackB, 'd', ft_lstsize(stackB)) == 0)
 	{
 		pushback(&stackA, &stackB, ft_lstsize(stackB));
-//		printStack(stackA, stackB);
+//		print_stack(stackA, stackB);
 //		write(1, "\nsorted!\n", 9);
 		lst_del(&stackA);
 		return (0);
@@ -59,17 +59,17 @@ int main(int argc, char **argv)
 	if (check_order(stackB, 'd', op) == 0)
 		pushback(&stackA, &stackB, op);
 	op = firstsortBA(&stackA, &stackB);
-//	printStack(stackA, stackB);
+//	print_stack(stackA, stackB);
 	while (check_order(stackB, 'd', ft_lstsize(stackB)) == 1 ||
 			check_order(stackA, 'i', ft_lstsize(stackA)) == 1)
 	{
 		op = secondsort(&stackA, &stackB, op);
-//		printStack(stackA, stackB);
+//		print_stack(stackA, stackB);
 	}
 //	write(1,"a\n",2);
 	if (stackB)
 		pushback(&stackA, &stackB, ft_lstsize(stackB));
-//	printStack(stackA, stackB);
+//	print_stack(stackA, stackB);
 //	write(1, "\nsorted!\n", 9);
 	lst_del(&stackA);
 	return (0);

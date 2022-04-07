@@ -20,12 +20,15 @@ INCLUDES_DIRS	= $(LIBFT_DIR) ./includes
 INCLUDES		= $(addprefix -I,$(INCLUDES_DIRS))
 LIBS			= $(LIBFT_DIR)/libft.a
 _SRCS			= push_swap.c \
-					listmanip0.c\
-					listmanip1.c\
-					listmanip2.c\
-					listmanip3.c\
-					listmanip4.c\
-					listmanip5.c
+					listmanip.c\
+					initpushswap.c\
+					base_op.c\
+					analysis_ft.c\
+					analysis2.c\
+					fillcheck.c\
+					mix_op.c\
+					sortsmall.c\
+					sortbig.c
 OBJS 			= $(patsubst %.c, $(OBJS_DIR)/%.o, $(_SRCS))
 SRCS 			= $(patsubst %, $(SRCS_DIR)/%, $(_SRCS))
 OBJS_BONUS 		= $(patsubst %.c, $(OBJS_DIR)/%.o, $(_SRCS_BONUS))

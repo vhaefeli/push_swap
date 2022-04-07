@@ -12,71 +12,38 @@
 
 #include "push_swap.h"
 
-int	ft_lstsize(t_list *lst)
-{
-	int	sizelst;
-
-	sizelst = 1;
-	if (!lst)
-		return (0);
-	while (lst->next)
-	{
-		sizelst++;
-		lst = lst->next;
-	}
-	return (sizelst);
-}
-
-t_list	*ft_lstnew2(void *content)
+t_list	*ft_lstnew2(char *src)
 {
 	t_list	*list;
 
 	list = malloc(sizeof(*list));
 	if (!list)
 		return (NULL);
-	list->content = content;
-	list->nbr = ft_atoistrong(content);
+	list->src = src;
+	list->nbr = ft_atoistrong(src);
 	list->next = NULL;
 	return (list);
 }
 
-void	ft_lstadd_front(t_list **lst, t_list *new)
+t_list	*ft_lstnbnew(int avg)
 {
-	if (!new)
-		return ;
-	new->next = *lst;
-	*lst = new;
-}
+	t_list	*list;
 
-t_list	*ft_lstlast(t_list *lst)
-{
-	if (!lst)
+	list = malloc(sizeof(*list));
+	if (!list)
 		return (NULL);
-	while (lst->next)
-		lst = lst->next;
-	return (lst);
+	list->nbr = avg;
+	list->next = NULL;
+	return (list);
 }
 
 void	lst_del(t_list **stack)
 {
 	while ((*stack)->next)
 	{
-		(*stack)->content = NULL;
+		(*stack)->src = NULL;
 		(*stack)->nbr = 0;
 		free (*stack);
 		*stack = (*stack)->next;
 	}
-}
-
-void	ft_lstadd_back(t_list **alst, t_list *new)
-{
-	t_list	*lastel;
-
-	if (!new)
-		return ;
-	lastel = ft_lstlast(*alst);
-	if (!lastel)
-		*alst = new;
-	else
-		lastel->next = new;
 }
