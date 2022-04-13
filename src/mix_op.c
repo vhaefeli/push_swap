@@ -14,7 +14,7 @@
 
 void	swap_or_not(t_list **stackA, t_list **stackB)
 {
-	if (*stackB && ft_bigger(*stackA, (*stackA)->next) && ft_smaller(*stackB, (*stackB)->next) && ft_bigger(*stackB, ft_lstlast(*stackB)))
+	if (*stackB && ft_bigger(*stackA, (*stackA)->next) && ft_smaller(*stackB, (*stackB)->next))
 	{
 		swap(stackA);
 		swap(stackB);
@@ -25,7 +25,7 @@ void	swap_or_not(t_list **stackA, t_list **stackB)
 		swap(stackA);
 		write(1, "sa\n",3);
 	}
-	else if (*stackB && ft_smaller(*stackB, (*stackB)->next) && ft_bigger(*stackB, ft_lstlast(*stackB)))
+	else if (*stackB && ft_smaller(*stackB, (*stackB)->next))
 	{
 		swap(stackB);
 		write(1, "sb\n",3);
@@ -55,21 +55,21 @@ int	swap_or_not2(t_list **stackA, t_list **stackB)
 	return (1);
 }
 
-int	rotate_pushAB(t_list **stackA, t_list **stackB, int n)
+int	rotate_pushAB(t_list **stackA, t_list **stackB, int L, int n)
 {
 //	write(1,"R",1);
-	if (*stackB && ft_biggernb(*stackA, n) && ft_smaller(*stackB, ft_lstlast(*stackB)))
+	if (*stackB && ft_biggernb(*stackA, L) && ft_biggernb(*stackB, L - (n / 2) - 1))
 	{
 		rotate(stackA);
 		rotate(stackB);
-		write(1, "rr\n",3);
+		write(1, "rr\n", 3);
 	}
-	else if (!ft_smallernb(*stackA, n))
+	else if (!ft_smallernb(*stackA, L))
 	{
 		rotate(stackA);
-		write(1, "ra\n",3);
+		write(1, "r\n", 3);
 	}
-	else if (*stackB && ft_smaller(*stackB, ft_lstlast(*stackB)))
+	else if (*stackB && ft_biggernb(*stackB, L - (n / 2) - 1))
 	{
 		rotate(stackB);
 		push(stackA, stackB);

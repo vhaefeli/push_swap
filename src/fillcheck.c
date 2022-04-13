@@ -129,15 +129,15 @@ void print_stack(t_list *stackA, t_list *stackB)
 	printf("\n#		stackA		stackB\n");
 	while  (stackA != NULL || stackB != NULL)
 	{
-		ft_printf("%i		", i);
+		printf("%i		", i);
 		if (stackA != NULL)
-			ft_printf("%s		", stackA->src);
+			printf("%d.%s		", stackA->position, stackA->src);
 		else
-			ft_printf("		");
+			printf("		");
 		if (stackB != NULL)
-			ft_printf("%s\n", stackB->src);
+			printf("%d.%s\n",stackB->position, stackB->src);
 		else
-			ft_printf("\n");
+			printf("\n");
 		if (stackA != NULL)
 			stackA = stackA->next;
 		if (stackB != NULL)

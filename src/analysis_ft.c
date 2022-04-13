@@ -12,62 +12,39 @@
 
 #include "push_swap.h"
 
-void	findminmax(t_list *stack, t_minmax **minmax)
+t_list	*findmin(t_list *stack)
 {
-	(*minmax)->nbmin = stack->nbr;
-	(*minmax)->nbmax = stack->nbr;
+	t_list	*min;
+
+	min = stack;
 	while(stack->next)
 	{
 		stack = stack->next;
-		if (stack->nbr < (*minmax)->nbmin)
-			(*minmax)->nbmin = stack->nbr;
-		if (stack->nbr > (*minmax)->nbmax)
-			(*minmax)->nbmax = stack->nbr;
+		if (stack->nbr < min->nbr)
+			min = stack;
 	}
+	return (min);
 }
-
-int	ft_average(t_list *stack, int n)
-{
-	int	tot;
-	int	qty;
-
-	tot = 0;
-	qty = 0;
-	while (stack)
-	{
-		if (stack->nbr >= n)
-		{
-			tot+= stack->nbr;
-			qty++;
-		}
-		stack = stack->next;
-	}
-	return (tot / qty);
-}
-
 
 /*n is the nbr of element to check if it's all the liste put a ft_lstsize*/
 int	check_order(t_list *stack, char c, int n)
 {
-	if (!stack)
+	if (!stack || !stack->next)
 		return (0);
 	if (c == 'i')
 	{
-		while (n-- > 1 && stack->nbr < (stack->next)->nbr)
+		while (n-- > 1 && stack->position == ((stack->next)->position) - 1)
 			stack = stack->next;
-		if (n == 1)
+		if (n == 0)
 			return (0);
 		else
 			return (1);
 	}
 	if (c == 'd')
 	{
-		while (n > 1 && stack->nbr > stack->next->nbr)
-		{
+		while (n-- > 1 && stack->position == ((stack->next)->position) + 1)
 			stack = stack->next;
-			n--;
-		}
-		if (n == 1)
+		if (n == 0)
 			return (0);
 		else
 			return (1);

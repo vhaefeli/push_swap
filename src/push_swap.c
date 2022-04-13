@@ -12,6 +12,22 @@
 
 #include "push_swap.h"
 
+int	ft_checksorted_b(t_list **stackA, t_list **stackB)
+{
+	if (!(*stackB))
+	{
+		lst_del(stackA);
+		return (1);
+	}
+	else if (check_order(*stackB, 'd', ft_lstsize(*stackB)) == 0)
+	{
+		pushback(stackA, stackB, ft_lstsize(*stackB));
+		lst_del(stackA);
+		return (1);
+	}
+	return (0);
+}
+
 
 
 int main(int argc, char **argv)
@@ -20,6 +36,8 @@ int main(int argc, char **argv)
 	t_list	*stackA;
 	t_list	*stackB;
 	int 	L;
+	int		n;
+	int i = 0;
 
 	stackB = NULL;
 	stackA = fill_list(argc, argv);
@@ -29,48 +47,58 @@ int main(int argc, char **argv)
 		lst_del(&stackA);
 		return (0);
 	}
-//	printf("la stack s'est bien remplie\n\n");
-//	print_stack(stackA, stackB);
-	L = ft_lstsize(stackA);
-	if (L < 8)
-		smallsortA(&stackA, &stackB, L);
+	op = 0;
+	ft_findposition(&stackA);
+	L = ft_bestpartition(stackA);
+	n = L;
+//	ft_printf("L= %d, n=%d\n", L, n);
+	if (ft_lstsize(stackA) < 8)
+		smallsortA(&stackA, &stackB, ft_lstsize(stackA));
 	else
 	{
 		while (check_order(stackA, 'i', ft_lstsize(stackA)))
-			op = firstsortAB(&stackA, &stackB);
+		{
+//			ft_printf("L= %d, n=%d\n", L, n);
+//			ft_printf("n- %d\n", n);
+			op = firstsortAB(&stackA, &stackB, L, n);
+			L+= n;
+		}
 	}
-//	write(1, "end of 1st sort\n", 16);
-	print_stack(stackA, stackB);
-//	printf("OP:%d\n",op);
-	if (!stackB)
-	{
-//		write(1, "\nsorted!\n", 9);
-		lst_del(&stackA);
+	if (ft_checksorted_b(&stackA, &stackB))
 		return (0);
-	}
-	if (check_order(stackB, 'd', ft_lstsize(stackB)) == 0)
-	{
-		pushback(&stackA, &stackB, ft_lstsize(stackB));
-//		print_stack(stackA, stackB);
-//		write(1, "\nsorted!\n", 9);
-		lst_del(&stackA);
-		return (0);
-	}
-	if (check_order(stackB, 'd', op) == 0)
-		pushback(&stackA, &stackB, op);
-	op = firstsortBA(&stackA, &stackB);
+//	printf("op=%d, n=%d",op,n);
 //	print_stack(stackA, stackB);
-	while (check_order(stackB, 'd', ft_lstsize(stackB)) == 1 ||
-			check_order(stackA, 'i', ft_lstsize(stackA)) == 1)
+//	printf("op = %d", op);
+	while (stackB && i++ < 15)
 	{
-		op = secondsort(&stackA, &stackB, op);
-//		print_stack(stackA, stackB);
+//		printf("op= %d", op);
+		if (op == 0)
+			op = n;
+		while (op && stackB)
+		{
+			op = sortback(&stackA,&stackB, op);
+			if (stackB && stackB->next)
+				op = revrotsort(&stackA, &stackB, op);
+			if (op)
+			{
+				while(stackB && (stackB)->position > (stackA)->position - op)
+				{
+					if ((stackB)->position == (stackA)->position - 1)
+					{
+						push(&stackB, &stackA);
+						write (1, "pa\n", 3);
+						op--;
+					}
+			 		else
+					{
+						rotate(&stackB);
+						write(1, "rb\n", 3);
+					}
+				}
+			}
+		}
 	}
-//	write(1,"a\n",2);
-	if (stackB)
-		pushback(&stackA, &stackB, ft_lstsize(stackB));
 //	print_stack(stackA, stackB);
-//	write(1, "\nsorted!\n", 9);
 	lst_del(&stackA);
 	return (0);
 }

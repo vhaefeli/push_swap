@@ -18,6 +18,7 @@
 # include <stdbool.h>
 # include <string.h>
 # include <unistd.h>
+# include <limits.h>
 
 int		ft_isalpha(int c);
 int		ft_isdigit(int c);
@@ -61,14 +62,9 @@ typedef struct s_list
 	void			*content;
 	char			*src;
 	int				nbr;
+	int				position;
 	struct s_list	*next;
 }	t_list;
-
-typedef struct s_minmax
-{
-	int	nbmin;
-	int nbmax;
-}	t_minmax;
 
 t_list	*ft_lstnew(void *content);
 void	ft_lstadd_front(t_list **alst, t_list *new);

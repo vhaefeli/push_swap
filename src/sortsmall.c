@@ -29,7 +29,6 @@ int smallsortA(t_list **stackA, t_list **stackB, int L)
 			while (k)
 			{
 				k = rotate_swap(stackA, stackB);
-	//			printStack(*stackA, *stackB);
 			}
 			if (!check_order(*stackA, 'i', ft_lstsize(*stackA)))
 					break;
@@ -39,7 +38,7 @@ int smallsortA(t_list **stackA, t_list **stackB, int L)
 			L--;
 	//		printStack(*stackA, *stackB);
 		}
-		while (stackB)
+		while (*stackB)
 		{
 			swap_or_not2(stackA, stackB);
 			push(stackB , stackA);
@@ -58,7 +57,7 @@ int minisortA(t_list **stackA)
 //	write(1,"minisortA\n",10);
 	if (ft_lstsize(*stackA) < 3)
 	{
-		if ((*stackA)->nbr > (*stackA)->next->nbr)
+		if ((*stackA)->next && (*stackA)->position > (*stackA)->next->position)
 		{
 			swap(stackA);
 			write(1, "sa\n", 3);
@@ -66,9 +65,9 @@ int minisortA(t_list **stackA)
 	}
 	else
 	{
-		if ((*stackA)->next->nbr > ft_lstlast(*stackA)->nbr)
+		if ((*stackA)->next->position > ft_lstlast(*stackA)->position)
 		{
-			if ((*stackA)->nbr > (*stackA)->next->nbr)
+			if ((*stackA)->position > (*stackA)->next->position)
 			{
 				rotate(stackA);
 				write(1, "ra\n", 3);
@@ -79,12 +78,12 @@ int minisortA(t_list **stackA)
 				write(1, "rra\n", 4);
 			}
 		}
-		if ((*stackA)->nbr > ft_lstlast(*stackA)->nbr)
+		if ((*stackA)->position > ft_lstlast(*stackA)->position)
 		{
 			rotate(stackA);
 			write(1, "ra\n", 3);
 		}
-		if ((*stackA)->nbr > (*stackA)->next->nbr)
+		if ((*stackA)->position > (*stackA)->next->position)
 		{
 			swap(stackA);
 			write(1, "sa\n", 3);
@@ -138,20 +137,20 @@ int smallsortB(t_list **stackA, t_list **stackB, int L)
 
 int minisortB(t_list **stackB)
 {
-//	write(1,"minisortB\n",10);
+	write(1,"minisortB\n",10);
 //
-	if (ft_lstsize(*stackB) < 3)
+	if ((*stackB)->next && ft_lstsize(*stackB) < 3)
 	{
-		if ((*stackB)->nbr > (*stackB)->next->nbr)
+		if ((*stackB)->position < (*stackB)->next->position)
 		{
 			swap(stackB);
 			write(1, "sb\n", 3);
 		}
 	}
 
-	if ((*stackB)->next->nbr > ft_lstlast(*stackB)->nbr)
+	if ((*stackB)->next->position < ft_lstlast(*stackB)->position)
 	{
-		if ((*stackB)->nbr > (*stackB)->next->nbr)
+		if ((*stackB)->position < (*stackB)->next->position)
 		{
 			rotate(stackB);
 			write(1, "rb\n", 3);
@@ -162,12 +161,12 @@ int minisortB(t_list **stackB)
 			write(1, "rrb\n", 4);
 		}
 	}
-	if ((*stackB)->nbr > ft_lstlast(*stackB)->nbr)
+	if ((*stackB)->position < ft_lstlast(*stackB)->position)
 	{
 		rotate(stackB);
 		write(1, "rb\n", 3);
 	}
-	if ((*stackB)->nbr > (*stackB)->next->nbr)
+	if ((*stackB)->position < (*stackB)->next->position)
 	{
 		swap(stackB);
 		write(1, "sb\n", 3);

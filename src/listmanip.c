@@ -21,18 +21,7 @@ t_list	*ft_lstnew2(char *src)
 		return (NULL);
 	list->src = src;
 	list->nbr = ft_atoistrong(src);
-	list->next = NULL;
-	return (list);
-}
-
-t_list	*ft_lstnbnew(int avg)
-{
-	t_list	*list;
-
-	list = malloc(sizeof(*list));
-	if (!list)
-		return (NULL);
-	list->nbr = avg;
+	list->position = 0;
 	list->next = NULL;
 	return (list);
 }
