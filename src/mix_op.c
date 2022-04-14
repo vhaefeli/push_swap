@@ -1,53 +1,33 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   listmanip3.c                                        :+:      :+:    :+:   */
+/*   mix_op.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: vhaefeli <marvin@42lausanne.ch>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/28 14:04:13 by vhaefeli          #+#    #+#             */
-/*   Updated: 2022/03/11 17:28:44 by vhaefeli         ###   ########.fr       */
+/*   Updated: 2022/04/14 16:45:55 by vhaefeli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-void	swap_or_not(t_list **stackA, t_list **stackB)
+int	swap_or_not(t_list **stack_a, t_list **stack_b)
 {
-	if (*stackB && ft_bigger(*stackA, (*stackA)->next) && ft_smaller(*stackB, (*stackB)->next))
+	if (*stack_b && ft_bigger(*stack_a, (*stack_a)->next) && ft_smaller(*stack_b, (*stack_b)->next))
 	{
-		swap(stackA);
-		swap(stackB);
+		swap(stack_a);
+		swap(stack_b);
 		write(1, "ss\n",3);
 	}
-	else if (ft_bigger(*stackA, (*stackA)->next))
+	else if (ft_bigger(*stack_a, (*stack_a)->next))
 	{
-		swap(stackA);
+		swap(stack_a);
 		write(1, "sa\n",3);
 	}
-	else if (*stackB && ft_smaller(*stackB, (*stackB)->next))
+	else if (*stack_b && ft_smaller(*stack_b, (*stack_b)->next))
 	{
-		swap(stackB);
-		write(1, "sb\n",3);
-	}
-}
-
-int	swap_or_not2(t_list **stackA, t_list **stackB)
-{
-	if (*stackB && ft_bigger(*stackA, (*stackA)->next) && ft_smaller(*stackB, (*stackB)->next))
-	{
-		swap(stackA);
-		swap(stackB);
-		write(1, "ss\n",3);
-	}
-	else if (ft_bigger(*stackA, (*stackA)->next))
-	{
-		swap(stackA);
-		write(1, "sa\n",3);
-	}
-	else if (*stackB && ft_smaller(*stackB, (*stackB)->next))
-	{
-		swap(stackB);
+		swap(stack_b);
 		write(1, "sb\n",3);
 	}
 	else
@@ -55,72 +35,55 @@ int	swap_or_not2(t_list **stackA, t_list **stackB)
 	return (1);
 }
 
-int	rotate_pushAB(t_list **stackA, t_list **stackB, int L, int n)
+int	rotate_push(t_list **stack_a, t_list **stack_b, int L, int n)
 {
 //	write(1,"R",1);
-	if (*stackB && ft_biggernb(*stackA, L) && ft_biggernb(*stackB, L - (n / 2) - 1))
+	if (*stack_b && ft_biggernb(*stack_a, L) && ft_biggernb(*stack_b, L - (n / 2) - 1))
 	{
-		rotate(stackA);
-		rotate(stackB);
+		rotate(stack_a);
+		rotate(stack_b);
 		write(1, "rr\n", 3);
 	}
-	else if (!ft_smallernb(*stackA, L))
+	else if (!ft_smallernb(*stack_a, L))
 	{
-		rotate(stackA);
+		rotate(stack_a);
 		write(1, "r\n", 3);
 	}
-	else if (*stackB && ft_biggernb(*stackB, L - (n / 2) - 1))
+	else if (*stack_b && ft_biggernb(*stack_b, L - (n / 2) - 1))
 	{
-		rotate(stackB);
-		push(stackA, stackB);
+		rotate(stack_b);
+		push(stack_a, stack_b);
 		write(1, "rb\npb\n", 6);
 		return (1);
 	}
 	else
 	{
-		push(stackA, stackB);
+		push(stack_a, stack_b);
 		write(1, "pb\n", 3);
 		return (1);
 	}
 	return (0);
 }
 
-int	rotate_pushBA(t_list **stackA, t_list **stackB, int n)
+int	rotate_swap(t_list **stack_a, t_list **stack_b)
 {
-	if (ft_smallernb(*stackB, n))
+	if (*stack_b && ft_bigger(*stack_a, ft_lstlast(*stack_a)) && ft_smaller(*stack_b, ft_lstlast(*stack_b)))
 	{
-		rotate(stackB);
-		write(1, "rb\n",3);
-		return (2);
-	}
-	else
-	{
-		push(stackB, stackA);
-		write(1, "pa\n", 3);
-		return (1);
-	}
-	return (0);
-}
-
-int	rotate_swap(t_list **stackA, t_list **stackB)
-{
-	if (*stackB && ft_bigger(*stackA, ft_lstlast(*stackA)) && ft_smaller(*stackB, ft_lstlast(*stackB)))
-	{
-		rotate(stackA);
-		rotate(stackB);
+		rotate(stack_a);
+		rotate(stack_b);
 		write(1, "rr\n",3);
 	}
-	else if (ft_bigger(*stackA, ft_lstlast(*stackA)))
+	else if (ft_bigger(*stack_a, ft_lstlast(*stack_a)))
 	{
-		rotate(stackA);
+		rotate(stack_a);
 		write(1, "ra\n",3);
 	}
-	else if (*stackB && ft_smaller(*stackB, ft_lstlast(*stackB)) )
+	else if (*stack_b && ft_smaller(*stack_b, ft_lstlast(*stack_b)) )
 	{
-		rotate(stackB);
+		rotate(stack_b);
 		write(1, "rb\n", 3);
 	}
 	else
-		return (swap_or_not2(stackA, stackB));
-	return (1 + swap_or_not2(stackA, stackB));
+		return (swap_or_not2(stack_a, stack_b));
+	return (1 + swap_or_not2(stack_a, stack_b));
 }

@@ -1,47 +1,64 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   listmanip0.c                                       :+:      :+:    :+:   */
+/*   fillcheck.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: vhaefeli <marvin@42lausanne.ch>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/28 14:04:13 by vhaefeli          #+#    #+#             */
-/*   Updated: 2022/03/04 18:47:31 by vhaefeli         ###   ########.fr       */
+/*   Updated: 2022/04/14 16:17:29 by vhaefeli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-t_list	*fill_list(int nbn, char **nb)
+int	ft_ini(int argc, char **argv, t_list **stack_a, t_op *analysis)
 {
-	t_list	*stackA;
+	*stack_a = fill_list(argc, argv);
+	if (argc < 2 || checkarg(*stack_a) == 0 || checkintminmax(*stack_a) == 0)
+	{
+		lst_del(stack_a);
+		ft_printf("ERROR");
+		return (1);
+	}
+	ft_findposition(stack_a);
+	analysis->sizetot = ft_lstsize(stack_a);
+	analysis->split = ft_bestpartition(stack_a);
+	analysis->op = analyze->split;
+	return (0);
+}
+
+
+list	*fill_list(int nbn, char **nb)
+{
+	t_list	*stack_a;
 	t_list	*new;
 
 	if (nbn < 2)
 		return (NULL);
 	if (nbn == 2)
-		stackA = ft_splittolst(nb[1]);
+		stack_a = ft_splittolst(nb[1]);
 	else
 	{
 		nbn--;
-		stackA = ft_lstnew2(nb[nbn]);
+		stack_a = ft_lstnew2(nb[nbn]);
 		nbn--;
 		while(nbn > 0)
 		{
 			new = ft_lstnew2(nb[nbn]);
-			ft_lstadd_front(&stackA, new);
+			ft_lstadd_front(&stack_a, new);
 			nbn--;
 		}
 	}
-	return (stackA);
+	return (stack_a);
 }
 
 t_list	*ft_splittolst(char *str)
 {
-	t_list	*stackA;
+	t_list	*stack_a;
 	t_list	*new;
 	char	*temp;
-
+/*
 	temp = str;
 	while( *str != ' ' && *str != '\0')
 		str++;
@@ -49,7 +66,8 @@ t_list	*ft_splittolst(char *str)
 		return (NULL);
 	*str = '\0';
 	str++;
-	stackA = ft_lstnew2(temp);
+	stack_a = ft_lstnew2(temp);
+	*/
 	while (*str)
 	{
 		temp = str;
@@ -63,9 +81,9 @@ t_list	*ft_splittolst(char *str)
 		while (*str == ' ')
 			str++;	
 		new = ft_lstnew2(temp);
-		ft_lstadd_back(&stackA, new);
+		ft_lstadd_back(&stack_a, new);
 	}
-	return (stackA);
+	return (stack_a);
 }
 
 int	checkarg(t_list *stack)
@@ -121,27 +139,27 @@ int	checkintminmax(t_list *stack)
 	return (1);
 }
 
-void print_stack(t_list *stackA, t_list *stackB)
+void print_stack(t_list *stack_a, t_list *stack_b)
 {
 	int i;
 
 	i = 1;
-	printf("\n#		stackA		stackB\n");
-	while  (stackA != NULL || stackB != NULL)
+	ft_printf("\n#		stack_a		stack_b\n");
+	while  (stack_a != NULL || stack_b != NULL)
 	{
-		printf("%i		", i);
-		if (stackA != NULL)
-			printf("%d.%s		", stackA->position, stackA->src);
+		ft_printf("%i		", i);
+		if (stack_a != NULL)
+			ft_printf("%d.%s		", stack_a->position, stack_a->src);
 		else
-			printf("		");
-		if (stackB != NULL)
-			printf("%d.%s\n",stackB->position, stackB->src);
+			ft_printf("		");
+		if (stack_b != NULL)
+			ft_printf("%d.%s\n",stack_b->position, stack_b->src);
 		else
-			printf("\n");
-		if (stackA != NULL)
-			stackA = stackA->next;
-		if (stackB != NULL)
-			stackB = stackB->next;
+			ft_printf("\n");
+		if (stack_a != NULL)
+			stack_a = stack_a->next;
+		if (stack_b != NULL)
+			stack_b = stack_b->next;
 		i++;
 	}
 }

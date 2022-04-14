@@ -6,23 +6,23 @@
 /*   By: vhaefeli <marvin@42lausanne.ch>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/28 14:04:13 by vhaefeli          #+#    #+#             */
-/*   Updated: 2022/04/04 17:10:39 by vhaefeli         ###   ########.fr       */
+/*   Updated: 2022/04/14 16:46:01 by vhaefeli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-int	ft_checksorted_b(t_list **stackA, t_list **stackB)
+int	ft_checksorted_b(t_list **stack_a, t_list **stack_b)
 {
-	if (!(*stackB))
+	if (!(*stack_b))
 	{
-		lst_del(stackA);
+		lst_del(stack_a);
 		return (1);
 	}
-	else if (check_order(*stackB, 'd', ft_lstsize(*stackB)) == 0)
+	else if (check_order(*stack_b, 'd', ft_lstsize(*stack_b)) == 0)
 	{
-		pushback(stackA, stackB, ft_lstsize(*stackB));
-		lst_del(stackA);
+		pushback(stack_a, stack_b, ft_lstsize(*stack_b));
+		lst_del(stack_a);
 		return (1);
 	}
 	return (0);
@@ -33,72 +33,52 @@ int	ft_checksorted_b(t_list **stackA, t_list **stackB)
 int main(int argc, char **argv)
 {
 	int		op;
-	t_list	*stackA;
-	t_list	*stackB;
-	int 	L;
-	int		n;
-	int i = 0;
-
-	stackB = NULL;
-	stackA = fill_list(argc, argv);
-	if (checkarg(stackA) == 0 || checkintminmax(stackA) == 0)
-	{
-		printf("ERROR");
-		lst_del(&stackA);
+	t_list	*stack_a;
+	t_list	*stack_b;
+	t_op	analysis;
+	
+	if (ft_ini(argc, argv, &stack_a, &analyse) == 1)
 		return (0);
-	}
-	op = 0;
-	ft_findposition(&stackA);
-	L = ft_bestpartition(stackA);
-	n = L;
-//	ft_printf("L= %d, n=%d\n", L, n);
-	if (ft_lstsize(stackA) < 8)
-		smallsortA(&stackA, &stackB, ft_lstsize(stackA));
+	if (ft_lstsize(stack_a) < 8)
+		smallsort(&stack_a, &stack_b, ft_lstsize(stack_a));
 	else
 	{
-		while (check_order(stackA, 'i', ft_lstsize(stackA)))
+		while (check_order(stack_a, 'i', ft_lstsize(stack_a)))
 		{
-//			ft_printf("L= %d, n=%d\n", L, n);
-//			ft_printf("n- %d\n", n);
-			op = firstsortAB(&stackA, &stackB, L, n);
+			op = firstsort(&stack_a, &stack_b, analysis.op, analysis.split);
 			L+= n;
 		}
 	}
-	if (ft_checksorted_b(&stackA, &stackB))
+	if (ft_checksorted_b(&stack_a, &stack_b))
 		return (0);
-//	printf("op=%d, n=%d",op,n);
-//	print_stack(stackA, stackB);
-//	printf("op = %d", op);
-	while (stackB && i++ < 15)
+	while (stack_b && i++ < 15)
 	{
-//		printf("op= %d", op);
 		if (op == 0)
 			op = n;
-		while (op && stackB)
+		while (op && stack_b)
 		{
-			op = sortback(&stackA,&stackB, op);
-			if (stackB && stackB->next)
-				op = revrotsort(&stackA, &stackB, op);
+			op = sortback(&stack_a,&stack_b, op);
+			if (stack_b && stack_b->next)
+				op = revrotsort(&stack_a, &stack_b, op);
 			if (op)
 			{
-				while(stackB && (stackB)->position > (stackA)->position - op)
+				while(stack_b && (stack_b)->position > (stack_a)->position - op)
 				{
-					if ((stackB)->position == (stackA)->position - 1)
+					if ((stack_b)->position == (stack_a)->position - 1)
 					{
-						push(&stackB, &stackA);
+						push(&stack_b, &stack_a);
 						write (1, "pa\n", 3);
 						op--;
 					}
 			 		else
 					{
-						rotate(&stackB);
+						rotate(&stack_b);
 						write(1, "rb\n", 3);
 					}
 				}
 			}
 		}
 	}
-//	print_stack(stackA, stackB);
-	lst_del(&stackA);
+	lst_del(&stack_a);
 	return (0);
 }

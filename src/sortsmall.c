@@ -1,26 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   push_swap.c                                        :+:      :+:    :+:   */
+/*   sortsmall.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: vhaefeli <marvin@42lausanne.ch>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/28 14:04:13 by vhaefeli          #+#    #+#             */
-/*   Updated: 2022/03/11 17:28:22 by vhaefeli         ###   ########.fr       */
+/*   Updated: 2022/04/14 16:43:54 by vhaefeli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-int smallsortA(t_list **stackA, t_list **stackB, int L)
+int smallsort(t_list **stack_a, t_list **stack_b, int L)
 {
 	int k;
 	int op;
 
-//	write(1,"smallsortA\n",11);
 	op = 0;
 	if (L < 4)
-		minisortA(stackA);
+		minisort(stack_a);
 	else
 	{
 		while (L > 2)
@@ -28,80 +27,79 @@ int smallsortA(t_list **stackA, t_list **stackB, int L)
 			k = 1;
 			while (k)
 			{
-				k = rotate_swap(stackA, stackB);
+				k = rotate_swap(stack_a, stack_b);
+				print_stack(*stack_a, *stack_b);
+//
 			}
-			if (!check_order(*stackA, 'i', ft_lstsize(*stackA)))
+			if (!check_order(*stack_a, 'i', ft_lstsize(*stack_a)))
 					break;
-			push(stackA , stackB);
+			push(stack_a , stack_b);
 			write(1, "pb\n", 3);
 			op++;
 			L--;
-	//		printStack(*stackA, *stackB);
+			print_stack(*stack_a, *stack_b);
+//
 		}
-		while (*stackB)
+		while (*stack_b)
 		{
-			swap_or_not2(stackA, stackB);
-			push(stackB , stackA);
+			swap_or_not(stack_a, stack_b);
+			push(stack_b , stack_a);
 			write(1, "pa\n", 3);
 			op++;
-	//		printStack(*stackA, *stackB);
+//
+			print_stack(*stack_a, *stack_b);
 		}
 	}
 	return (op);
 }
 
-
-
-int minisortA(t_list **stackA)
+int minisort(t_list **stack_a)
 {
-//	write(1,"minisortA\n",10);
-	if (ft_lstsize(*stackA) < 3)
+	if (ft_lstsize(*stack_a) < 3)
 	{
-		if ((*stackA)->next && (*stackA)->position > (*stackA)->next->position)
+		if ((*stack_a)->next && (*stack_a)->position > (*stack_a)->next->position)
 		{
-			swap(stackA);
+			swap(stack_a);
 			write(1, "sa\n", 3);
 		}
 	}
 	else
 	{
-		if ((*stackA)->next->position > ft_lstlast(*stackA)->position)
+		if ((*stack_a)->next->position > ft_lstlast(*stack_a)->position)
 		{
-			if ((*stackA)->position > (*stackA)->next->position)
+			if ((*stack_a)->position > (*stack_a)->next->position)
 			{
-				rotate(stackA);
+				rotate(stack_a);
 				write(1, "ra\n", 3);
 			}
 			else
 			{
-				rev_rotate(stackA);
+				rev_rotate(stack_a);
 				write(1, "rra\n", 4);
 			}
 		}
-		if ((*stackA)->position > ft_lstlast(*stackA)->position)
+		if ((*stack_a)->position > ft_lstlast(*stack_a)->position)
 		{
-			rotate(stackA);
+			rotate(stack_a);
 			write(1, "ra\n", 3);
 		}
-		if ((*stackA)->position > (*stackA)->next->position)
+		if ((*stack_a)->position > (*stack_a)->next->position)
 		{
-			swap(stackA);
+			swap(stack_a);
 			write(1, "sa\n", 3);
 		}
 	}
 	return (0);
 }
 
-int smallsortB(t_list **stackA, t_list **stackB, int L)
+int smallsortB(t_list **stack_a, t_list **stack_b, int L)
 {
 	int k;
 	int op;
 
-//	write(1,"smallsortB\n",11);
-
 	op = 0;
 	if (L < 4)
-		minisortB(stackB);
+		minisortB(stack_b);
 	else
 	{
 		while (L > 2)
@@ -109,25 +107,21 @@ int smallsortB(t_list **stackA, t_list **stackB, int L)
 			k = 1;
 			while (k)
 			{
-	//			printf("k= %d",k);
-				k = rotate_swap(stackA, stackB);
-//				printStack(*stackA, *stackB);
+				k = rotate_swap(stack_a, stack_b);
 			}
-			if (!check_order(*stackB, 'd', ft_lstsize(*stackB)))
+			if (!check_order(*stack_b, 'd', ft_lstsize(*stack_b)))
 					break;
-			push(stackB , stackA);
+			push(stack_b , stack_a);
 			write(1, "pa\n", 3);
 			op++;
 			L--;
-//			printStack(*stackA, *stackB);
 		}
-		while (*stackB)
+		while (*stack_b)
 		{
-			swap_or_not2(stackA, stackB);
-			push(stackB , stackA);
+			swap_or_not2(stack_a, stack_b);
+			push(stack_b , stack_a);
 			write(1, "pa\n", 3);
 			op++;
-//			printStack(*stackA, *stackB);
 		}
 	}
 	return (op);
@@ -135,67 +129,62 @@ int smallsortB(t_list **stackA, t_list **stackB, int L)
 
 
 
-int minisortB(t_list **stackB)
+int minisortB(t_list **stack_b)
 {
 	write(1,"minisortB\n",10);
 //
-	if ((*stackB)->next && ft_lstsize(*stackB) < 3)
+	if ((*stack_b)->next && ft_lstsize(*stack_b) < 3)
 	{
-		if ((*stackB)->position < (*stackB)->next->position)
+		if ((*stack_b)->position < (*stack_b)->next->position)
 		{
-			swap(stackB);
+			swap(stack_b);
 			write(1, "sb\n", 3);
 		}
 	}
 
-	if ((*stackB)->next->position < ft_lstlast(*stackB)->position)
+	if ((*stack_b)->next->position < ft_lstlast(*stack_b)->position)
 	{
-		if ((*stackB)->position < (*stackB)->next->position)
+		if ((*stack_b)->position < (*stack_b)->next->position)
 		{
-			rotate(stackB);
+			rotate(stack_b);
 			write(1, "rb\n", 3);
 		}
 		else
 		{
-			rev_rotate(stackB);
+			rev_rotate(stack_b);
 			write(1, "rrb\n", 4);
 		}
 	}
-	if ((*stackB)->position < ft_lstlast(*stackB)->position)
+	if ((*stack_b)->position < ft_lstlast(*stack_b)->position)
 	{
-		rotate(stackB);
+		rotate(stack_b);
 		write(1, "rb\n", 3);
 	}
-	if ((*stackB)->position < (*stackB)->next->position)
+	if ((*stack_b)->position < (*stack_b)->next->position)
 	{
-		swap(stackB);
+		swap(stack_b);
 		write(1, "sb\n", 3);
 	}
 	return (0);
 }
 
-void pushback(t_list **stackA, t_list **stackB, int n)
+void pushback(t_list **stack_a, t_list **stack_b, int n)
 {
-//	write(1,"Pushback\n", 9);
 	if (n == 0)
 	{
-		while ((*stackB)->next != NULL)
+		while ((*stack_b)->next != NULL)
 		{
-			push(stackB, stackA);
+			push(stack_b, stack_a);
 			write(1, "pa\n", 3);
-//			printStack(*stackA, *stackB);
 		}
 	}
 	else
 	{
-//		printf("\nn:%d\n",n);
 		while (n > 0 )
 		{
-			push(stackB, stackA);
+			push(stack_b, stack_a);
 			write(1, "pa\n", 3);
-//			printStack(*stackA, *stackB);
 			n--;
 		}
 	}
-//	write(1, "\n pushend\n", 10);
 }
