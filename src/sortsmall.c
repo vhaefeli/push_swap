@@ -182,8 +182,8 @@ void pushback(t_list **stack_a, t_list **stack_b, int n)
 	{
 		while (n > 0 )
 		{
-			push(stack_b, stack_a);
-			write(1, "pa\n", 3);
+				push(stack_b, stack_a);
+				write(1, "pa\n", 3);
 			n--;
 		}
 	}

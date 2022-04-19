@@ -37,7 +37,6 @@ int	swap_or_not(t_list **stack_a, t_list **stack_b)
 
 int	rotate_push(t_list **stack_a, t_list **stack_b, int L, int n)
 {
-//	write(1,"R",1);
 	if (*stack_b && ft_biggernb(*stack_a, L) && ft_biggernb(*stack_b, L - (n / 2) - 1))
 	{
 		rotate(stack_a);
@@ -47,7 +46,7 @@ int	rotate_push(t_list **stack_a, t_list **stack_b, int L, int n)
 	else if (!ft_smallernb(*stack_a, L))
 	{
 		rotate(stack_a);
-		write(1, "r\n", 3);
+		write(1, "ra\n", 3);
 	}
 	else if (*stack_b && ft_biggernb(*stack_b, L - (n / 2) - 1))
 	{

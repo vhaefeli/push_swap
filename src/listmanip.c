@@ -28,7 +28,7 @@ t_list	*ft_lstnew2(char *src)
 
 void	lst_del(t_list **stack)
 {
-	while ((*stack)->next)
+	while ( *stack && (*stack)->next)
 	{
 		(*stack)->src = NULL;
 		(*stack)->nbr = 0;

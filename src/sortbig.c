@@ -67,7 +67,7 @@ int	sortback(t_list **stack_a, t_list **stack_b, int n)
 			write(1, "rrb\n", 4);
 			temp1 = ft_lstlast(*stack_b);
 //			print_stack(*stack_a, *stack_b);
-			ft_printf("n= %d", n);
+//			ft_printf("n= %d\n", n);
 		}
 		if ((*stack_b)->position == (*stack_a)->position - 1)
 		{
