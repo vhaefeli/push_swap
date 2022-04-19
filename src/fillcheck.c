@@ -6,7 +6,7 @@
 /*   By: vhaefeli <marvin@42lausanne.ch>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/28 14:04:13 by vhaefeli          #+#    #+#             */
-/*   Updated: 2022/04/14 16:17:29 by vhaefeli         ###   ########.fr       */
+/*   Updated: 2022/04/19 15:49:47 by vhaefeli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,7 @@ t_list	*ft_splittolst(char *str)
 	t_list	*stack_a;
 	t_list	*new;
 	char	*temp;
-/*
+
 	temp = str;
 	while( *str != ' ' && *str != '\0')
 		str++;
@@ -67,7 +67,7 @@ t_list	*ft_splittolst(char *str)
 	*str = '\0';
 	str++;
 	stack_a = ft_lstnew2(temp);
-	*/
+	
 	while (*str)
 	{
 		temp = str;

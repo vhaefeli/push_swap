@@ -6,7 +6,7 @@
 /*   By: vhaefeli <marvin@42lausanne.ch>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/28 14:04:13 by vhaefeli          #+#    #+#             */
-/*   Updated: 2022/04/14 16:45:55 by vhaefeli         ###   ########.fr       */
+/*   Updated: 2022/04/19 11:39:06 by vhaefeli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,7 @@ int	rotate_push(t_list **stack_a, t_list **stack_b, int L, int n)
 
 int	rotate_swap(t_list **stack_a, t_list **stack_b)
 {
-	if (ft_smaller(*stack_a, ft_lstlast(*stack_a)) && ft_smallernb(*stack_a, (ft_lstsize(*stack_a) / 2)))
+	if (ft_bigger(*stack_a, ft_lstlast(*stack_a)) && ft_smallernb(ft_lstlast(*stack_a), (ft_lstsize(*stack_a) / 2 + 1)))
 	{
 		rev_rotate(stack_a);
 		write(1, "rra\n",4);

@@ -6,7 +6,7 @@
 /*   By: vhaefeli <marvin@42lausanne.ch>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/28 14:04:13 by vhaefeli          #+#    #+#             */
-/*   Updated: 2022/04/14 16:41:19 by vhaefeli         ###   ########.fr       */
+/*   Updated: 2022/04/19 18:34:26 by vhaefeli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,14 +57,17 @@ int	sortback(t_list **stack_a, t_list **stack_b, int n)
 	t_list	*temp1;
 
 	temp1 = ft_lstlast(*stack_b);
-	while (n && *stack_b)
+	while (n > 0 && *stack_b)
 	{
+//		ft_printf("dede");
 		swap_or_not(stack_a, stack_b);
 		if ((*stack_b)->next && (temp1->position > (*stack_b)->position))
 		{
 			rev_rotate(stack_b);
 			write(1, "rrb\n", 4);
 			temp1 = ft_lstlast(*stack_b);
+//			print_stack(*stack_a, *stack_b);
+			ft_printf("n= %d", n);
 		}
 		if ((*stack_b)->position == (*stack_a)->position - 1)
 		{
@@ -100,13 +103,14 @@ int	revrotsort(t_list **stack_a, t_list **stack_b, int op)
 	{
 		rev_rotate(stack_b);
 		write(1, "rrb\n", 4);
-		swap_or_not2(stack_a, stack_b);
+		swap_or_not(stack_a, stack_b);
 	}
 	if ((*stack_b)->position == (*stack_a)->position - 1)
 		{
 			push(stack_b, stack_a);
 			write(1, "pa\n", 3);
 			op--;
+//			ft_printf("op=%d", op);
 		}
 	return (op);
 }

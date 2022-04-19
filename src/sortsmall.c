@@ -6,7 +6,7 @@
 /*   By: vhaefeli <marvin@42lausanne.ch>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/28 14:04:13 by vhaefeli          #+#    #+#             */
-/*   Updated: 2022/04/14 16:43:54 by vhaefeli         ###   ########.fr       */
+/*   Updated: 2022/04/19 11:39:03 by vhaefeli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ int smallsort(t_list **stack_a, t_list **stack_b, int L)
 			while (k)
 			{
 				k = rotate_swap(stack_a, stack_b);
-				print_stack(*stack_a, *stack_b);
+//				print_stack(*stack_a, *stack_b);
 //
 			}
 			if (!check_order(*stack_a, 'i', ft_lstsize(*stack_a)))
@@ -37,7 +37,7 @@ int smallsort(t_list **stack_a, t_list **stack_b, int L)
 			write(1, "pb\n", 3);
 			op++;
 			L--;
-			print_stack(*stack_a, *stack_b);
+//			print_stack(*stack_a, *stack_b);
 //
 		}
 		while (*stack_b)
@@ -47,7 +47,7 @@ int smallsort(t_list **stack_a, t_list **stack_b, int L)
 			write(1, "pa\n", 3);
 			op++;
 //
-			print_stack(*stack_a, *stack_b);
+//			print_stack(*stack_a, *stack_b);
 		}
 	}
 	return (op);
@@ -91,7 +91,7 @@ int minisort(t_list **stack_a)
 	}
 	return (0);
 }
-
+/*
 int smallsortB(t_list **stack_a, t_list **stack_b, int L)
 {
 	int k;
@@ -167,7 +167,7 @@ int minisortB(t_list **stack_b)
 	}
 	return (0);
 }
-
+*/
 void pushback(t_list **stack_a, t_list **stack_b, int n)
 {
 	if (n == 0)

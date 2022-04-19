@@ -6,7 +6,7 @@
 /*   By: vhaefeli <marvin@42lausanne.ch>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/28 14:04:13 by vhaefeli          #+#    #+#             */
-/*   Updated: 2022/04/14 16:46:01 by vhaefeli         ###   ########.fr       */
+/*   Updated: 2022/04/19 18:34:15 by vhaefeli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,9 +36,12 @@ int main(int argc, char **argv)
 	t_list	*stack_a;
 	t_list	*stack_b;
 	t_op	analysis;
+	int i = 0;
 	
 	if (ft_ini(argc, argv, &stack_a, &analysis) == 1)
 		return (0);
+	stack_b = NULL;
+	print_stack(stack_a, stack_b);
 	if (ft_lstsize(stack_a) < 8)
 		smallsort(&stack_a, &stack_b, ft_lstsize(stack_a));
 	else
@@ -51,19 +54,23 @@ int main(int argc, char **argv)
 	}
 	if (ft_checksorted_b(&stack_a, &stack_b))
 		return (0);
-	while (stack_b)
-	{
-		if (op == 0)
-			op = analysis.split;
-		while (op && stack_b)
+	print_stack(stack_a, stack_b);
+	ft_printf("op = %d, a.op = %d, a.split = %d\n", op , analysis.op, analysis.split);
+//	return (0);
+//	while (stack_b)
+//	{
+		ft_printf("1op=%d\n",op);
+		while (op >= 0 && stack_b && i++ < 50000000)
 		{
 			op = sortback(&stack_a,&stack_b, op);
 			if (stack_b && stack_b->next)
 				op = revrotsort(&stack_a, &stack_b, op);
 			if (op)
 			{
+//				ft_printf("1:%d\n 2:%d\n", stack_b->position, stack_a->position - op);
 				while(stack_b && (stack_b)->position > (stack_a)->position - op)
 				{
+//					ft_printf("hello");
 					if ((stack_b)->position == (stack_a)->position - 1)
 					{
 						push(&stack_b, &stack_a);
@@ -77,8 +84,12 @@ int main(int argc, char **argv)
 					}
 				}
 			}
+			ft_printf("op = %d\n", op);
+			if (op < 1)
+				op = analysis.split - op;
 		}
-	}
+		print_stack(stack_a, stack_b);
+//	}
 	lst_del(&stack_a);
 	return (0);
 }
