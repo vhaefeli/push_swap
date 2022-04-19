@@ -21,6 +21,14 @@
 # include <stdarg.h>
 # include "libft.h"
 
+typedef struct s_op
+{
+	int	sizetot;
+	int	split;
+	int	op;
+	int	error;
+}	t_op;
+
 t_list	*ft_lstnew2(char *src);
 void	lst_del(t_list **stack);
 
@@ -60,13 +68,5 @@ int		firstsort(t_list **stack_a, t_list **stack_b, int L, int n);
 //int		checkendsort(t_list *stack);
 int		sortback(t_list **stack_a, t_list **stack_b, int n);
 int		revrotsort(t_list **stack_a, t_list **stack_b, int op);
-
-typedef struct s_op
-{
-	int	sizetot;
-	int	split;
-	int	op;
-	int	error;
-}	t_op;
 
 #endif

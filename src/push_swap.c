@@ -37,7 +37,7 @@ int main(int argc, char **argv)
 	t_list	*stack_b;
 	t_op	analysis;
 	
-	if (ft_ini(argc, argv, &stack_a, &analyse) == 1)
+	if (ft_ini(argc, argv, &stack_a, &analysis) == 1)
 		return (0);
 	if (ft_lstsize(stack_a) < 8)
 		smallsort(&stack_a, &stack_b, ft_lstsize(stack_a));
@@ -46,15 +46,15 @@ int main(int argc, char **argv)
 		while (check_order(stack_a, 'i', ft_lstsize(stack_a)))
 		{
 			op = firstsort(&stack_a, &stack_b, analysis.op, analysis.split);
-			L+= n;
+			analysis.op+= analysis.split;
 		}
 	}
 	if (ft_checksorted_b(&stack_a, &stack_b))
 		return (0);
-	while (stack_b && i++ < 15)
+	while (stack_b)
 	{
 		if (op == 0)
-			op = n;
+			op = analysis.split;
 		while (op && stack_b)
 		{
 			op = sortback(&stack_a,&stack_b, op);

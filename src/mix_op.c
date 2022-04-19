@@ -67,8 +67,13 @@ int	rotate_push(t_list **stack_a, t_list **stack_b, int L, int n)
 
 int	rotate_swap(t_list **stack_a, t_list **stack_b)
 {
-	if (*stack_b && ft_bigger(*stack_a, ft_lstlast(*stack_a)) && ft_smaller(*stack_b, ft_lstlast(*stack_b)))
+	if (ft_smaller(*stack_a, ft_lstlast(*stack_a)) && ft_smallernb(*stack_a, (ft_lstsize(*stack_a) / 2)))
 	{
+		rev_rotate(stack_a);
+		write(1, "rra\n",4);
+	}
+	else if (*stack_b && ft_bigger(*stack_a, ft_lstlast(*stack_a)) && ft_smaller(*stack_b, ft_lstlast(*stack_b)))
+	{ 
 		rotate(stack_a);
 		rotate(stack_b);
 		write(1, "rr\n",3);
@@ -84,6 +89,6 @@ int	rotate_swap(t_list **stack_a, t_list **stack_b)
 		write(1, "rb\n", 3);
 	}
 	else
-		return (swap_or_not2(stack_a, stack_b));
-	return (1 + swap_or_not2(stack_a, stack_b));
+		return (swap_or_not(stack_a, stack_b));
+	return (1 + swap_or_not(stack_a, stack_b));
 }

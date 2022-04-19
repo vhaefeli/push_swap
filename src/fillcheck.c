@@ -22,14 +22,14 @@ int	ft_ini(int argc, char **argv, t_list **stack_a, t_op *analysis)
 		return (1);
 	}
 	ft_findposition(stack_a);
-	analysis->sizetot = ft_lstsize(stack_a);
-	analysis->split = ft_bestpartition(stack_a);
-	analysis->op = analyze->split;
+	analysis->sizetot = ft_lstsize(*stack_a);
+	analysis->split = ft_bestpartition(*stack_a);
+	analysis->op = analysis->split;
 	return (0);
 }
 
 
-list	*fill_list(int nbn, char **nb)
+t_list	*fill_list(int nbn, char **nb)
 {
 	t_list	*stack_a;
 	t_list	*new;
