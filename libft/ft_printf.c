@@ -6,7 +6,7 @@
 /*   By: vhaefeli <marvin@42lausanne.ch>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/20 11:50:59 by vhaefeli          #+#    #+#             */
-/*   Updated: 2022/04/20 11:56:21 by vhaefeli         ###   ########.fr       */
+/*   Updated: 2022/04/20 16:50:28 by vhaefeli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include <unistd.h>
@@ -32,7 +32,7 @@ static int	ft_prints(char *src)
 
 static void	ft_printnb_base(unsigned int nb, int nbase, int *n)
 {
-	char	base[17];
+	char	*base;
 
 	base = "0123456789abcdef";
 	if (nb / nbase)
