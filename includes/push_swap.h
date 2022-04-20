@@ -6,7 +6,7 @@
 /*   By: vhaefeli <marvin@42lausanne.ch>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/14 15:41:44 by vhaefeli          #+#    #+#             */
-/*   Updated: 2022/04/19 18:34:23 by vhaefeli         ###   ########.fr       */
+/*   Updated: 2022/04/20 16:33:24 by vhaefeli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,10 +35,10 @@ void	lst_del(t_list **stack);
 void	ft_findposition(t_list **stack);
 int		ft_bestpartition(t_list *stack);
 
-void	swap(t_list **stack);
-void	rotate(t_list **stack);
-void	rev_rotate(t_list **stack);
-void	push(t_list **stack1, t_list **stack2);
+void	swap(t_list **stack, char *src);
+void	rotate(t_list **stack, char *src);
+void	rev_rotate(t_list **stack, char *src);
+int		push(t_list **stack1, t_list **stack2, char *src);
 
 t_list	*findmin(t_list *stack);
 int		check_order(t_list *stack, char c, int n);
@@ -49,7 +49,7 @@ int		ft_smaller(t_list *stack1, t_list *stack2);
 int		ft_biggernb(t_list *stack1, int n);
 int		ft_smallernb(t_list *stack1, int n);
 
-int		ft_ini(int argc, char **argv, t_list **stack_a, t_op *analyze);
+int		ft_ini(int argc, char **argv, t_list **stack_a, t_op *analysis);
 t_list	*fill_list(int nbn, char **nb);
 t_list	*ft_splittolst(char *str);
 int		checkarg(t_list *stack);
@@ -68,5 +68,6 @@ int		firstsort(t_list **stack_a, t_list **stack_b, int L, int n);
 //int		checkendsort(t_list *stack);
 int		sortback(t_list **stack_a, t_list **stack_b, int n);
 int		revrotsort(t_list **stack_a, t_list **stack_b, int op);
+void	backsort(t_list **stack_a, t_list **stack_b, int op);
 
 #endif

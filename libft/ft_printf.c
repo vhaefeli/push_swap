@@ -1,10 +1,20 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_printf.c                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: vhaefeli <marvin@42lausanne.ch>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/04/20 11:50:59 by vhaefeli          #+#    #+#             */
+/*   Updated: 2022/04/20 11:56:21 by vhaefeli         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 #include <unistd.h>
 #include <stdarg.h>
 
-
 static int	ft_prints(char *src)
 {
-	int n;
+	int	n;
 
 	n = 0;
 	if (src == NULL)
@@ -20,9 +30,11 @@ static int	ft_prints(char *src)
 	return (n);
 }
 
-static void ft_printnb_base(unsigned int nb, int nbase, int *n)
+static void	ft_printnb_base(unsigned int nb, int nbase, int *n)
 {
-	char	base[17] = "0123456789abcdef";
+	char	base[17];
+
+	base = "0123456789abcdef";
 	if (nb / nbase)
 		ft_printnb_base(nb / nbase, nbase, n);
 	write(1, &base[nb % nbase], 1);
@@ -31,16 +43,16 @@ static void ft_printnb_base(unsigned int nb, int nbase, int *n)
 
 static void	ft_dealtype(va_list ap, char type, int *n)
 {	
-	int nb;
+	int	nb;
 
 	if (type == 's')
-		*n+= ft_prints(va_arg(ap, char *));
+		*n += ft_prints(va_arg(ap, char *));
 	else if (type == 'd' || type == 'i')
 	{
 		nb = va_arg(ap, int);
 		if (nb < 0)
 		{
-			nb*= -1;
+			nb *= -1;
 			write(1, "-", 1);
 			(*n)++;
 		}
@@ -49,12 +61,12 @@ static void	ft_dealtype(va_list ap, char type, int *n)
 	else if (type == 'x')
 		ft_printnb_base(va_arg(ap, unsigned int), 16, n);
 	else
-		write (1, "ERROR type printf\n", 18);
+		write(1, "ERROR type printf\n", 18);
 }
 
 int	ft_printf(const char *src, ...)
 {
-	va_list ap;
+	va_list	ap;
 	int		i;
 	int		n;
 
@@ -72,10 +84,9 @@ int	ft_printf(const char *src, ...)
 		else
 		{
 			ft_dealtype(ap, src[i + 1], &n);
-			i+= 2;
+			i += 2;
 		}
 	}
 	va_end(ap);
 	return (n);
 }
-

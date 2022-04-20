@@ -6,7 +6,7 @@
 /*   By: vhaefeli <marvin@42lausanne.ch>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/28 14:04:13 by vhaefeli          #+#    #+#             */
-/*   Updated: 2022/04/14 16:02:07 by vhaefeli         ###   ########.fr       */
+/*   Updated: 2022/04/20 13:44:00 by vhaefeli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ t_list	*ft_lstnew2(char *src)
 
 void	lst_del(t_list **stack)
 {
-	while ( *stack && (*stack)->next)
+	while (*stack && (*stack)->next)
 	{
 		(*stack)->src = NULL;
 		(*stack)->nbr = 0;

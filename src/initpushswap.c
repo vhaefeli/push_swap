@@ -6,7 +6,7 @@
 /*   By: vhaefeli <marvin@42lausanne.ch>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/14 16:18:11 by vhaefeli          #+#    #+#             */
-/*   Updated: 2022/04/14 16:18:15 by vhaefeli         ###   ########.fr       */
+/*   Updated: 2022/04/20 13:12:21 by vhaefeli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 void	ft_findposition(t_list **stack)
 {
 	int		qty;
-	int 	pos;
+	int		pos;
 	t_list	*min;
 
 	pos = 1;
@@ -31,22 +31,22 @@ void	ft_findposition(t_list **stack)
 
 int	ft_bestpartition(t_list *stack)
 {
-	int qty;
+	int	qty;
 
 	qty = ft_lstsize(stack);
 	if (qty < 8)
 		return (qty);
 	else if (qty < 24)
-		qty/= 2;
+		qty /= 2;
 	else if (qty <= 50)
-		qty/= 3;
+		qty /= 3;
 	else if (qty <= 100)
-		qty/= 9;
+		qty /= 9;
 	else if (qty <= 200)
-		qty/= 8;
+		qty /= 8;
 	else if (qty <= 500)
-		qty/= 20;
+		qty /= 20;
 	else
-		qty/= 50;
+		qty /= 50;
 	return (qty);
 }

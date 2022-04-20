@@ -6,7 +6,7 @@
 /*   By: vhaefeli <marvin@42lausanne.ch>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/28 14:04:13 by vhaefeli          #+#    #+#             */
-/*   Updated: 2022/04/19 15:49:47 by vhaefeli         ###   ########.fr       */
+/*   Updated: 2022/04/20 16:30:30 by vhaefeli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,10 +15,10 @@
 int	ft_ini(int argc, char **argv, t_list **stack_a, t_op *analysis)
 {
 	*stack_a = fill_list(argc, argv);
-	if (argc < 2 || checkarg(*stack_a) == 0 || checkintminmax(*stack_a) == 0)
+	if (checkarg(*stack_a) == 0 || checkintminmax(*stack_a) == 0)
 	{
 		lst_del(stack_a);
-		ft_printf("ERROR");
+		ft_printf("Error");
 		return (1);
 	}
 	ft_findposition(stack_a);
@@ -27,7 +27,6 @@ int	ft_ini(int argc, char **argv, t_list **stack_a, t_op *analysis)
 	analysis->op = analysis->split;
 	return (0);
 }
-
 
 t_list	*fill_list(int nbn, char **nb)
 {
@@ -43,7 +42,7 @@ t_list	*fill_list(int nbn, char **nb)
 		nbn--;
 		stack_a = ft_lstnew2(nb[nbn]);
 		nbn--;
-		while(nbn > 0)
+		while (nbn > 0)
 		{
 			new = ft_lstnew2(nb[nbn]);
 			ft_lstadd_front(&stack_a, new);
@@ -59,19 +58,11 @@ t_list	*ft_splittolst(char *str)
 	t_list	*new;
 	char	*temp;
 
-	temp = str;
-	while( *str != ' ' && *str != '\0')
-		str++;
-	if (*str == '\0')
-		return (NULL);
-	*str = '\0';
-	str++;
-	stack_a = ft_lstnew2(temp);
-	
+	stack_a = NULL;
 	while (*str)
 	{
 		temp = str;
-		while( *str != ' ' && *str != '\0')
+		while (*str != ' ' && *str != '\0')
 			str++;
 		if (*str == ' ')
 		{
@@ -79,9 +70,12 @@ t_list	*ft_splittolst(char *str)
 			str++;
 		}
 		while (*str == ' ')
-			str++;	
+			str++;
 		new = ft_lstnew2(temp);
-		ft_lstadd_back(&stack_a, new);
+		if (stack_a)
+			ft_lstadd_back(&stack_a, new);
+		else
+			stack_a = ft_lstnew2(temp);
 	}
 	return (stack_a);
 }
@@ -96,10 +90,10 @@ int	checkarg(t_list *stack)
 	{
 		if (stack->nbr == 0)
 		{
-			while(*(stack->src))
+			while (*(stack->src))
 			{
 				if (*(stack->src) != '0')
-				   return (0);
+					return (0);
 				(stack->src)++;
 			}
 		}
@@ -124,12 +118,12 @@ int	checkintminmax(t_list *stack)
 		if (ft_strlen(stack->src) > 9)
 		{
 			numberchar = ft_itoa(stack->nbr);
-			while(*(stack->src))
+			while (*(stack->src))
 			{
 				if (*(stack->src) == '+')
 					(stack->src)++;
 				if (*(stack->src) != *numberchar)
-				   return (0);
+					return (0);
 				(stack->src)++;
 				numberchar++;
 			}
@@ -137,29 +131,4 @@ int	checkintminmax(t_list *stack)
 		stack = stack->next;
 	}
 	return (1);
-}
-
-void print_stack(t_list *stack_a, t_list *stack_b)
-{
-	int i;
-
-	i = 1;
-	ft_printf("\n#		stack_a		stack_b\n");
-	while  (stack_a != NULL || stack_b != NULL)
-	{
-		ft_printf("%i		", i);
-		if (stack_a != NULL)
-			ft_printf("%d.%s		", stack_a->position, stack_a->src);
-		else
-			ft_printf("		");
-		if (stack_b != NULL)
-			ft_printf("%d.%s\n",stack_b->position, stack_b->src);
-		else
-			ft_printf("\n");
-		if (stack_a != NULL)
-			stack_a = stack_a->next;
-		if (stack_b != NULL)
-			stack_b = stack_b->next;
-		i++;
-	}
 }
