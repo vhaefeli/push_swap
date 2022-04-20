@@ -114,3 +114,33 @@ int	revrotsort(t_list **stack_a, t_list **stack_b, int op)
 		}
 	return (op);
 }
+
+int	where_is_nb(t_list *stack_b, int min, int nb)
+{
+	while(stack_b->position != nb && stack->position >= min)
+		stack_b = stack_b->next;
+	if (stack_b->position == nb)
+		return (0);
+	else
+		return (1);
+}
+
+int	backsort(t_list **stack_a, t_list **stack_b, int op)
+{
+	int	min;
+	int	nb;
+	int	w;
+
+	min = (*stack_a)->position - op;
+	nb = (*stack_a)->position - 1;
+	w = where_is_nb(*stack_b, min, nb);
+	if (w == 0)
+	{
+		while ((*stack_b)->position != nb)
+		{
+			rotate(stack_b);
+			write(1, "rb\n", 3);
+			swap_or_not(stack_a, stack_b);
+		}
+	}
+
