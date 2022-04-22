@@ -1,5 +1,5 @@
 # push_swap
-push_swap from ecole42
+push_swap ecole42
 
 gave me a 86% score
 
