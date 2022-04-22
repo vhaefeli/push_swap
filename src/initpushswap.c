@@ -6,7 +6,7 @@
 /*   By: vhaefeli <marvin@42lausanne.ch>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/14 16:18:11 by vhaefeli          #+#    #+#             */
-/*   Updated: 2022/04/20 13:12:21 by vhaefeli         ###   ########.fr       */
+/*   Updated: 2022/04/21 10:35:30 by vhaefeli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,8 +42,6 @@ int	ft_bestpartition(t_list *stack)
 		qty /= 3;
 	else if (qty <= 100)
 		qty /= 9;
-	else if (qty <= 200)
-		qty /= 8;
 	else if (qty <= 500)
 		qty /= 20;
 	else

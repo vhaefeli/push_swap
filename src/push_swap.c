@@ -6,13 +6,13 @@
 /*   By: vhaefeli <marvin@42lausanne.ch>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/28 14:04:13 by vhaefeli          #+#    #+#             */
-/*   Updated: 2022/04/20 17:00:14 by vhaefeli         ###   ########.fr       */
+/*   Updated: 2022/04/21 10:32:44 by vhaefeli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-int	ft_checksorted_b(t_list **stack_a, t_list **stack_b)
+static int	ft_checksorted_b(t_list **stack_a, t_list **stack_b)
 {
 	if (!(*stack_b))
 	{
@@ -28,7 +28,7 @@ int	ft_checksorted_b(t_list **stack_a, t_list **stack_b)
 	return (0);
 }
 
-void	end_sort(t_list **stack_a, t_list **stack_b, int op, int split)
+static void	end_sort(t_list **stack_a, t_list **stack_b, int op, int split)
 {
 	if (op == 0)
 		op = split;

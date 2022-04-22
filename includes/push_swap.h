@@ -6,7 +6,7 @@
 /*   By: vhaefeli <marvin@42lausanne.ch>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/14 15:41:44 by vhaefeli          #+#    #+#             */
-/*   Updated: 2022/04/20 16:33:24 by vhaefeli         ###   ########.fr       */
+/*   Updated: 2022/04/21 10:37:13 by vhaefeli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,7 @@ int		push(t_list **stack1, t_list **stack2, char *src);
 
 t_list	*findmin(t_list *stack);
 int		check_order(t_list *stack, char c, int n);
+void	print_stack(t_list *stack_a, t_list *stack_b);
 
 int		ft_atoistrong(const char *str);
 int		ft_bigger(t_list *stack1, t_list *stack2);
@@ -54,7 +55,6 @@ t_list	*fill_list(int nbn, char **nb);
 t_list	*ft_splittolst(char *str);
 int		checkarg(t_list *stack);
 int		checkintminmax(t_list *stack);
-void	print_stack(t_list *stack_a, t_list *stack_b);
 
 int		swap_or_not(t_list **stack_a, t_list **stack_b);
 int		rotate_push(t_list **stack_a, t_list **stack_b, int L, int n);
@@ -65,9 +65,7 @@ int		minisort(t_list **stack_a);
 void	pushback(t_list **stack_a, t_list **stack_b, int n);
 
 int		firstsort(t_list **stack_a, t_list **stack_b, int L, int n);
-//int		checkendsort(t_list *stack);
-int		sortback(t_list **stack_a, t_list **stack_b, int n);
-int		revrotsort(t_list **stack_a, t_list **stack_b, int op);
+int		where_is_nb(t_list *stack_b, int min, int nb);		
 void	backsort(t_list **stack_a, t_list **stack_b, int op);
 
 #endif
